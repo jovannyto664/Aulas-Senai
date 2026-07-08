@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <thead>
+            <h1>painel de preferências</h1>
+        </thead>
+    </header>
+
+    <tbody>
+        <label for="nome">insira seu nome aqui: <input placeholder="seu nome" type="text" name="nome" id="nome"></label>
+        <br>
+        <label for="temaPref">insira seu tema Preferido aqui: <input placeholder="Seu tema" type="text" name="temaPref"
+                id="temaPref"></label> <br>
+        <label for="opcoes">insira sua linguagem de programação favorita: <select name="opcoes" id="opcoes">
+                <option value="">Selecione uma opção</option>
+                <option value="1">JS</option>
+                <option value="2">Python</option>
+                <option value="3">Java</option>
+                <option value="4">c#</option>
+                <option value="5">outros</option>
+            </select></label><br>
+        <textarea placeholder="comente uma observação pessoal sua" name="textarea" id="textarea"></textarea><br>
+    </tbody>
+
+    <button type="submit">enviar</button>
+
+    <div id="resumoJSON">teste</div>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
