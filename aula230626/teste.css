@@ -1,0 +1,6 @@
+.caixa-azul {
+  background-color: blue;
+  width: 100px;
+  height: 100px;
+  transition: all 0.5s; /* Deixa a mudança suave */
+}

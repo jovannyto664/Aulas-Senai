@@ -1,0 +1,33 @@
+.modo-perigo {
+    color: red;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+
+.borda-erro {
+    border: 3px solid red;
+}
+
+.borda-sucesso {
+    border: 3px solid green;
+}
+
+
+.caixa-responsiva {
+    width: 50%;
+    /* Largura em porcentagem muda com a tela! */
+    height: 100px;
+    background-color: gold;
+}
+
+
+.card-padrao {
+    padding: 20px;
+    background-color: gray;
+    color: white;
+}
+
+.fundo-sucesso {
+    background-color: green;
+}
