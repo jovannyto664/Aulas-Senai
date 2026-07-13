@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM 2 - Atividades</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <p class="etiqueta">JavaScript DOM</p>
+        <h1>Atividades de DOM 2</h1>
+        <p class="descricao">
+            Exercicios sobre navegacao, criacao de elementos, listas, cards e eventos.
+        </p>
+    </header>
+
+    <main>
+        <section class="bloco" id="atividade-1">
+            <h2>Atividade 1 - Explorando a arvore de nos</h2>
+
+            <div id="container" class="demo-box">
+                <h1>Titulo Principal</h1>
+                <p>Primeiro paragrafo</p>
+                <p>Segundo paragrafo</p>
+            </div>
+
+            <h3>Resultados</h3>
+            <ul id="resultados" class="resultados"></ul>
+        </section>
+
+        <section class="bloco" id="atividade-2">
+            <h2>Atividade 2 - Criando elementos dinamicamente</h2>
+            <div id="elementos-criados" class="demo-box"></div>
+        </section>
+
+        <section class="bloco" id="atividade-3">
+            <h2>Atividade 3 - Construindo uma lista dinamica</h2>
+            <div id="lista-container" class="lista-container demo-box"></div>
+        </section>
+
+        <section class="bloco" id="atividade-4">
+            <h2>Atividade 4 - Sistema de cards dinamicos</h2>
+            <div id="produtos" class="produtos-grid"></div>
+        </section>
+
+        <section class="bloco" id="atividade-5">
+            <h2>Atividade 5 - Gerenciador de tarefas</h2>
+
+            <div class="tarefas">
+                <label class="sr-only" for="tarefa">Tarefa</label>
+                <input
+                    type="text"
+                    id="tarefa"
+                    placeholder="Digite uma tarefa"
+                >
+
+                <button id="adicionar" type="button">
+                    Adicionar
+                </button>
+
+                <p id="aviso" aria-live="polite"></p>
+                <ul id="lista"></ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
