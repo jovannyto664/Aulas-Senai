@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  padding: 40px;
+  background-color: #eef4fb;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.lampada {
+  width: 120px;
+  height: 120px;
+  margin: 25px auto;
+  border-radius: 50%;
+  background-color: #6b7280;
+}
+
+.lampada.acesa {
+  background-color: #facc15;
+  box-shadow: 0 0 30px #facc15;
+}
+
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1557a0;
+  color: white;
+  cursor: pointer;
+}

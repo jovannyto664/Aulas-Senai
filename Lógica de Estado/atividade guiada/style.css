@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  padding: 40px;
+  background-color: #eef4fb;
+  font-family: Arial, sans-serif;
+}
+
+.placar {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: white;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+#numero-pontos {
+  font-size: 42px;
+  color: #1557a0;
+}
+
+.botoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1557a0;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0d3f78;
+}
