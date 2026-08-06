@@ -1,0 +1,94 @@
+window.xfce4-panel widget>box>button>image {
+	padding: 0.2em 0.16em;
+	-gtk-icon-transform: scale(0.8);
+}
+
+window#whiskermenu-window treeview>* {
+	padding: 0.2em 0.16em;
+}
+
+window#whiskermenu-window>* {
+	font-size: 13px;
+}
+
+#whiskermenu-button image {
+	-gtk-icon-transform: scale(0.8);
+}
+
+#xfce4-notification-plugin image {
+	-gtk-icon-transform: scale(0.85);
+}
+
+#pulseaudio-button image {
+	-gtk-icon-transform: scale(0.85);
+}
+
+#xfce4-power-manager-plugin image {
+	-gtk-icon-transform: scale(0.75);
+}
+
+VteTerminal, vte-terminal {
+	padding: 13px;
+}
+
+.xfce4-panel {
+	border-top: 3px solid #9666ff;
+	background-color: #000000;
+}
+
+.xfce4-panel .tasklist .toggle {
+	border-width: 3px;
+	border-radius: 0px;
+	border-color: #9666ff;
+	margin-top: 5px;
+	margin-right: 3px;
+	margin-left: 0px;
+	font-size: 14px;
+	color: #9666ff;
+	font-weight: 300;
+}
+
+.xfce4-panel .tasklist box {
+	padding-top: 2px;
+}
+
+.xfce4-panel .tasklist image {
+	margin-left: 4px;
+	margin-right: 0px;
+	padding-right: 0px;
+}
+
+.xfce4-panel .tasklist label {
+	padding-left: 0px;
+	margin-left: 0px;
+}
+
+.xfce4-panel .tasklist .toggle box {
+	background-color: #000000;
+	color: #9666ff;
+	font-weight: 300;
+}
+.xfce4-panel .tasklist .toggle:checked box {
+	background-color: #9666ff;
+	color: black;
+	font-weight: 300;
+}
+
+XfdesktopIconView.label {
+	color: #9666ff;
+}
+
+.nemo-window .view {
+	background-color: #000000;
+	color: #9666ff;
+}
+
+.nemo-window .sidebar .view {
+	background-color: #000000;
+	color: #9666ff;
+}
+
+#clock-button {
+	margin-top: 2px;
+	color: #9666ff;
+}
