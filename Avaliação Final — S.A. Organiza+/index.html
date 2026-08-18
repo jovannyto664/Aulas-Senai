@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="mensagem"></div>
+    <header>
+      <h1>To-do List</h1>
+      <label for="textoAdd">Tarefa</label>
+      <input id="textoAdd" type="text" />
+      <input
+        id="botaoAdd"
+        onclick="addTarefa()"
+        type="button"
+        value="Adicionar"
+        submit="addTarefa()"
+      />
+    </header>
+    <div id="lista">
+      <ul id="listaTarefas"></ul>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
