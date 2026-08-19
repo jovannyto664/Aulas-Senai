@@ -34,9 +34,13 @@ function renderizarTarefas() {
       tarefa.concluida = checkbox.checked;
       salvarNoLocalStorage();
     });
+    const exclusao = document.createElement("button");
+    exclusao.innerText = "excluir";
+    exclusao.addEventListener("click", () => excluir(tarefa.id));
 
     li.appendChild(checkbox);
     li.appendChild(spanTitulo);
+    li.appendChild(exclusao);
     elementoLista.appendChild(li);
   });
 }
@@ -48,7 +52,8 @@ function addTarefa() {
   // 1. Verificar se o campo não está vazio
   if (texto === "") {
     // Apresenta mensagem de orientação se o título não for informado
-    elementoMensagem.innerText = "Por favor, informe o título da tarefa antes de adicionar.";
+    elementoMensagem.innerText =
+      "Por favor, informe o título da tarefa antes de adicionar.";
     elementoMensagem.style.color = "red";
     inputTexto.focus();
     return;
@@ -62,6 +67,7 @@ function addTarefa() {
     id: Date.now(), // Gera um ID único baseado no timestamp
     titulo: texto,
     concluida: false,
+    exclusao: false,
   };
 
   // 3. Adicionar o objeto à estrutura de dados (Array)
@@ -78,6 +84,13 @@ function addTarefa() {
   inputTexto.focus();
 }
 
+function excluir(id) {
+  listaTarefas = listaTarefas.filter((tarefa) => tarefa.id !== id);
+  salvarNoLocalStorage();
+  renderizarTarefas();
+  elementoMensagem.innerText = "Tarefas excluídas com sucesso!";
+  elementoMensagem.style.color = "green";
+}
+
 // Renderiza as tarefas salvas assim que a página é carregada
 renderizarTarefas();
-
