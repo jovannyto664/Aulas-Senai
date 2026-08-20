@@ -3,8 +3,10 @@ let listaTarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 const inputTexto = document.getElementById("textoAdd");
 const elementoMensagem = document.getElementById("mensagem");
 const elementoLista = document.getElementById("listaTarefas");
+const contador = document.querySelector("#contador")
+const pendentes = document.querySelector(".pendentes")
 
-// Função para salvar a lista atualizada no localStorage
+
 function salvarNoLocalStorage() {
   localStorage.setItem("tarefas", JSON.stringify(listaTarefas));
 }
@@ -68,6 +70,11 @@ function addTarefa() {
   inputTexto.focus();
 }
 
+function contando() {
+  "s"
+}
+
+
 function excluir(id) {
   listaTarefas = listaTarefas.filter((tarefa) => tarefa.id !== id);
   salvarNoLocalStorage();
@@ -77,3 +84,4 @@ function excluir(id) {
 }
 
 renderizarTarefas();
+
