@@ -3,9 +3,14 @@ let listaTarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 const inputTexto = document.getElementById("textoAdd");
 const elementoMensagem = document.getElementById("mensagem");
 const elementoLista = document.getElementById("listaTarefas");
-const contador = document.querySelector("#contador")
-const pendentes = document.querySelector(".pendentes")
+const contador = document.querySelector("#contador");
+const pendentes = document.querySelector(".pendentes");
+const total = document.querySelector(".total");
+const concluidos = document.querySelector(".concluidos");
+let contadorP = 0;
+let contadorC = 0;
 
+function excluirCon(e) {}
 
 function salvarNoLocalStorage() {
   localStorage.setItem("tarefas", JSON.stringify(listaTarefas));
@@ -42,6 +47,7 @@ function renderizarTarefas() {
 
 function addTarefa() {
   const texto = inputTexto.value.trim();
+  contandoT(total);
 
   if (texto === "") {
     elementoMensagem.innerText =
@@ -70,10 +76,10 @@ function addTarefa() {
   inputTexto.focus();
 }
 
-function contando() {
-  "s"
+function contandoT(e) {
+  e.textContent = listaTarefas.length;
+  renderizarTarefas();
 }
-
 
 function excluir(id) {
   listaTarefas = listaTarefas.filter((tarefa) => tarefa.id !== id);
@@ -85,3 +91,4 @@ function excluir(id) {
 
 renderizarTarefas();
 
+contandoT(total);
