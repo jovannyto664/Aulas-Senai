@@ -7,11 +7,20 @@ const contador = document.querySelector("#contador");
 const pendentes = document.querySelector(".pendentes");
 const total = document.querySelector(".total");
 const concluidos = document.querySelector(".concluidos");
+const excluirConcluidas = document.querySelector("#excluirCon");
 let contadorP = 0;
 let contadorC = 0;
 
-function excluirCon(e) {}
+function contarPendentes() {
+  pendentes.textContent = listaTarefas.filter(
+    (tarefa) => !tarefa.concluida,
+  ).length;
+}
 
+function contarConcluidos() {
+  const tarefasConcluidas = listaTarefas.filter((tarefa) => tarefa.concluida);
+  concluidos.textContent = tarefasConcluidas.length;
+}
 function salvarNoLocalStorage() {
   localStorage.setItem("tarefas", JSON.stringify(listaTarefas));
 }
@@ -33,6 +42,7 @@ function renderizarTarefas() {
     checkbox.addEventListener("change", () => {
       tarefa.concluida = checkbox.checked;
       salvarNoLocalStorage();
+      renderizarTarefas();
     });
     const exclusao = document.createElement("button");
     exclusao.innerText = "excluir";
@@ -43,12 +53,14 @@ function renderizarTarefas() {
     li.appendChild(exclusao);
     elementoLista.appendChild(li);
   });
+  contarPendentes();
+  contarConcluidos();
 }
 
 function addTarefa() {
   const texto = inputTexto.value.trim();
-  contandoT(total);
-
+  contarPendentes();
+  contarConcluidos();
   if (texto === "") {
     elementoMensagem.innerText =
       "Por favor, informe o título da tarefa antes de adicionar.";
@@ -72,23 +84,39 @@ function addTarefa() {
 
   renderizarTarefas();
 
+  contandoT(total);
+
   inputTexto.value = "";
   inputTexto.focus();
 }
 
 function contandoT(e) {
   e.textContent = listaTarefas.length;
-  renderizarTarefas();
 }
 
 function excluir(id) {
   listaTarefas = listaTarefas.filter((tarefa) => tarefa.id !== id);
   salvarNoLocalStorage();
   renderizarTarefas();
+  contandoT(total);
+  contarPendentes();
+  contarConcluidos();
   elementoMensagem.innerText = "Tarefas excluídas com sucesso!";
   elementoMensagem.style.color = "green";
 }
 
-renderizarTarefas();
+function limparTarefasConcluidas() {
+  listaTarefas = listaTarefas.filter((tarefa) => !tarefa.concluida);
 
+  salvarNoLocalStorage();
+  renderizarTarefas();
+  contandoT(total);
+  contarPendentes();
+  contarConcluidos();
+}
+excluirConcluidas.addEventListener("click", limparTarefasConcluidas);
+
+renderizarTarefas();
+contarPendentes();
+contarConcluidos();
 contandoT(total);
