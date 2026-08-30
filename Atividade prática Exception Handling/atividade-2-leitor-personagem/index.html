@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitor de personagem</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Leitor de personagem</h1>
+
+    <p>Digite um personagem no formato JSON:</p>
+
+    <textarea id="entrada-json" rows="7">{"nome":"Luna","nivel":8}</textarea>
+
+    <button id="btn-ler">Ler personagem</button>
+
+    <section class="cartao">
+      <h2 id="nome-personagem">Nenhum personagem</h2>
+      <p>Nível: <strong id="nivel-personagem">-</strong></p>
+    </section>
+
+    <p id="mensagem" class="mensagem">
+      Aguardando leitura.
+    </p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persistência JSON e localStorage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topo">
+        <p class="tag">Persistencia I</p>
+        <h1>JSON e Armazenamento Local</h1>
+        <p class="subtitulo">Pratica com strings, numeros, objetos e arrays salvos no navegador.</p>
+    </header>
+
+    <main class="layout">
+        <section class="atividade">
+            <span class="numero">1</span>
+            <h2>Guardar E-mail</h2>
+            <div class="linha-formulario">
+                <input type="text" id="input-email" placeholder="Seu melhor e-mail">
+                <button id="btn-gravar" type="button">Salvar E-mail</button>
+            </div>
+            <p class="feedback" id="feedback-email"></p>
+        </section>
+
+        <section class="atividade">
+            <span class="numero">2</span>
+            <h2>Contador de Cliques</h2>
+            <div class="contador">
+                <h3>Cliques: <span id="num-cliques">0</span></h3>
+                <button id="btn-incremento" type="button">Contar Clique</button>
+            </div>
+            <p class="feedback" id="feedback-cliques"></p>
+        </section>
+
+        <section class="atividade">
+            <span class="numero">3</span>
+            <h2>Objeto de Sessao</h2>
+            <p class="texto-curto">Objeto salvo na chave <strong>dados_sessao_correto</strong>.</p>
+            <code id="preview-usuario"></code>
+        </section>
+
+        <section class="atividade">
+            <span class="numero">4</span>
+            <h2>Ficha do Pet</h2>
+            <div class="linha-formulario dupla">
+                <input type="text" id="nome-pet" placeholder="Nome do cao">
+                <input type="text" id="raca-pet" placeholder="Raca">
+                <button id="btn-salvar-pet" type="button">Registrar Pet</button>
+            </div>
+            <p class="feedback" id="feedback-pet"></p>
+        </section>
+
+        <section class="atividade">
+            <span class="numero">5</span>
+            <h2>Lista de Compras</h2>
+            <div class="linha-formulario">
+                <input type="text" id="novo-item" placeholder="Adicione um item...">
+                <button id="btn-adicionar" type="button">Inserir na Lista</button>
+            </div>
+            <ul id="lista-mercado"></ul>
+            <p class="feedback" id="feedback-lista"></p>
+        </section>
+
+        <section class="atividade painel">
+            <span class="numero">LS</span>
+            <h2>Painel do localStorage</h2>
+            <pre id="painel-storage"></pre>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

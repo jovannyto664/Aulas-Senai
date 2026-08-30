@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tratamento de Erros em JavaScript</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topo">
+    <p class="tag">TRY, CATCH, THROW, FINALLY, DOM e localStorage</p>
+    <h1>Tratamento de Erros em JavaScript</h1>
+    <p class="subtitulo">Entrega prática com respostas, validações reutilizáveis, cadastro de livros e persistência segura.</p>
+  </header>
+
+  <main>
+    <section class="faixa app-livros" aria-labelledby="titulo-app">
+      <div class="conteudo-duplo">
+        <div class="painel-ferramenta">
+          <span class="numero">7-10</span>
+          <h2 id="titulo-app">Cadastro de livros</h2>
+          <p class="texto-apoio">Valida os campos, trata falhas com catch, restaura o botão com finally e salva no localStorage sem alterar o estado antes da confirmação.</p>
+
+          <form id="form-livro" class="formulario" novalidate>
+            <label for="titulo">Título do livro</label>
+            <input id="titulo" name="titulo" type="text" autocomplete="off" placeholder="Ex.: Dom Casmurro">
+
+            <label for="autor">Autor</label>
+            <input id="autor" name="autor" type="text" autocomplete="off" placeholder="Ex.: Machado de Assis">
+
+            <div class="linha-campos">
+              <div>
+                <label for="ano">Ano de publicação</label>
+                <input id="ano" name="ano" type="number" inputmode="numeric" placeholder="Ex.: 1899">
+              </div>
+
+              <div>
+                <label for="paginas">Quantidade de páginas</label>
+                <input id="paginas" name="paginas" type="number" inputmode="numeric" placeholder="Ex.: 256">
+              </div>
+            </div>
+
+            <button id="btn-cadastrar" type="submit">Cadastrar livro</button>
+          </form>
+
+          <p id="mensagem-formulario" class="feedback" role="status" aria-live="polite"></p>
+        </div>
+
+        <aside class="painel-ferramenta biblioteca" aria-labelledby="titulo-biblioteca">
+          <div class="cabecalho-lista">
+            <div>
+              <span class="numero">LS</span>
+              <h2 id="titulo-biblioteca">Biblioteca persistente</h2>
+            </div>
+            <div class="grupo-botoes">
+              <button id="btn-exemplos" type="button" class="secundario">Exemplos</button>
+              <button id="btn-corromper" type="button" class="alerta">JSON inválido</button>
+              <button id="btn-limpar" type="button" class="neutro">Limpar</button>
+            </div>
+          </div>
+
+          <div class="resumo" aria-label="Resumo da biblioteca">
+            <p><strong id="total-livros">0</strong><span> livros</span></p>
+            <p><strong id="total-paginas">0</strong><span> páginas</span></p>
+          </div>
+
+          <ul id="lista-livros" class="lista-livros"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="faixa" aria-labelledby="titulo-respostas">
+      <div class="conteudo">
+        <h2 id="titulo-respostas">Respostas das atividades</h2>
+
+        <div class="grade-respostas">
+          <article class="atividade">
+            <span class="numero">1</span>
+            <h3>Previsão da ordem de execução</h3>
+            <p><strong>Sequência prevista e observada:</strong> A, B, D, E, F.</p>
+            <p>O erro acontece em <code>console.log(usuario.nome)</code>, porque <code>usuario</code> vale <code>null</code>. A mensagem C não aparece, pois o fluxo sai do try assim que o erro ocorre. O catch executa D, o finally executa E e o código depois da estrutura executa F.</p>
+          </article>
+
+          <article class="atividade">
+            <span class="numero">2</span>
+            <h3>Erro capturado ou não capturado</h3>
+            <div class="tabela-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Possível falha</th>
+                    <th>Local</th>
+                    <th>Catch captura?</th>
+                    <th>Justificativa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>querySelector</code> não encontra o botão</td>
+                    <td><code>botao.addEventListener(...)</code></td>
+                    <td>Não</td>
+                    <td>Essa linha está fora do bloco try.</td>
+                  </tr>
+                  <tr>
+                    <td>JSON inválido</td>
+                    <td><code>JSON.parse('{"nome":"Ana"')</code></td>
+                    <td>Sim</td>
+                    <td>A conversão acontece dentro do bloco try.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <pre><code>const botao = document.querySelector("#salvar");
+
+if (botao) {
+  botao.addEventListener("click", function () {
+    try {
+      const dados = JSON.parse('{"nome":"Ana"');
+      console.log(dados);
+    } catch (erro) {
+      console.error("Falha ao interpretar os dados:", erro);
+    }
+  });
+}</code></pre>
+          </article>
+
+          <article class="atividade">
+            <span class="numero">3</span>
+            <h3>Catch silencioso</h3>
+            <p>Um catch vazio esconde o problema: o programador perde a informação técnica e o usuário fica sem retorno. O console pode receber detalhes do erro, enquanto a interface deve mostrar uma mensagem simples.</p>
+            <pre><code>try {
+  const dados = JSON.parse(textoRecebido);
+  mostrarDados(dados);
+} catch (erro) {
+  console.error("Falha ao processar os dados recebidos:", erro);
+  mostrarMensagem("Não foi possível carregar os dados. Tente novamente.");
+}</code></pre>
+          </article>
+
+          <article class="atividade">
+            <span class="numero">4</span>
+            <h3>Escolha entre if e try...catch</h3>
+            <div class="tabela-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Situação</th>
+                    <th>Escolha</th>
+                    <th>Justificativa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Campo vazio</td>
+                    <td>if</td>
+                    <td>É uma condição previsível antes da operação.</td>
+                  </tr>
+                  <tr>
+                    <td>String JSON corrompida</td>
+                    <td>try...catch</td>
+                    <td><code>JSON.parse()</code> pode lançar erro.</td>
+                  </tr>
+                  <tr>
+                    <td><code>querySelector</code> sem elemento</td>
+                    <td>if</td>
+                    <td>O método retorna <code>null</code>, então dá para verificar antes.</td>
+                  </tr>
+                  <tr>
+                    <td>Função de validação com throw</td>
+                    <td>try...catch</td>
+                    <td>Quem chama precisa tratar o erro lançado.</td>
+                  </tr>
+                  <tr>
+                    <td>Divisão por zero</td>
+                    <td>if</td>
+                    <td>JavaScript não lança erro sozinho nesse caso.</td>
+                  </tr>
+                  <tr>
+                    <td>Dados alterados no localStorage</td>
+                    <td>if + try...catch</td>
+                    <td>Verifica ausência/formato e protege o parse.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <pre><code>if (campo.value.trim() === "") {
+  mostrarMensagem("Preencha o campo.");
+}
+
+try {
+  const dados = JSON.parse(texto);
+} catch (erro) {
+  console.error("JSON inválido:", erro);
+}
+
+const elemento = document.querySelector("#salvar");
+if (elemento) {
+  elemento.addEventListener("click", salvar);
+}</code></pre>
+          </article>
+
+          <article class="atividade painel-testes">
+            <span class="numero">5</span>
+            <h3>Validações de usuário com throw</h3>
+            <p>As funções <code>validarNome</code>, <code>validarIdade</code> e <code>validarEmail</code> estão no arquivo <code>script.js</code>. Elas devolvem o valor tratado quando a entrada é válida e lançam <code>Error</code> com mensagem específica quando uma regra falha.</p>
+            <div id="testes-validacoes" class="lista-testes"></div>
+          </article>
+
+          <article class="atividade painel-testes">
+            <span class="numero">6</span>
+            <h3>Calculadora segura ampliada</h3>
+            <p>A função <code>calcular(numero1, numero2, operacao)</code> valida números, operação permitida e divisão por zero antes de retornar o resultado.</p>
+            <div id="testes-calculadora" class="lista-testes"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faixa apoio" aria-labelledby="titulo-storage">
+      <div class="conteudo-duplo">
+        <div class="painel-ferramenta">
+          <span class="numero">9</span>
+          <h2 id="titulo-storage">Recuperação segura de preferências</h2>
+          <p class="texto-apoio">A função <code>recuperarPreferencias()</code> trata chave ausente, JSON quebrado, arrays e objetos incompatíveis.</p>
+          <div class="grupo-botoes preferencias">
+            <button type="button" data-teste-preferencia="ausente">Chave ausente</button>
+            <button type="button" data-teste-preferencia="valido">JSON válido</button>
+            <button type="button" data-teste-preferencia="quebrado" class="alerta">JSON quebrado</button>
+            <button type="button" data-teste-preferencia="array" class="neutro">Array</button>
+          </div>
+          <pre id="preview-preferencias"><code>{}</code></pre>
+        </div>
+
+        <div class="painel-ferramenta">
+          <span class="numero">8</span>
+          <h2>Uso de finally no envio</h2>
+          <p class="texto-apoio">No envio válido, o botão é desativado, o livro é validado, salvo e renderizado; no fim, o finally restaura texto e estado do botão. No envio inválido, o catch mostra <code>erro.message</code> e o finally restaura o botão do mesmo jeito, evitando repetição.</p>
+          <div class="tabela-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cenário</th>
+                  <th>Resultado esperado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Livro válido: Dom Casmurro, Machado de Assis, 1899, 256</td>
+                  <td>Livro cadastrado, lista atualizada, campos limpos e foco no título.</td>
+                </tr>
+                <tr>
+                  <td>Livro válido: O Hobbit, J. R. R. Tolkien, 1937, 310</td>
+                  <td>Segundo item salvo no array do localStorage.</td>
+                </tr>
+                <tr>
+                  <td>Título vazio</td>
+                  <td>Mensagem de erro e nenhum cadastro.</td>
+                </tr>
+                <tr>
+                  <td>Autor com menos de 3 caracteres</td>
+                  <td>Mensagem informando a regra mínima.</td>
+                </tr>
+                <tr>
+                  <td>Ano menor que 1450 ou maior que o ano atual</td>
+                  <td>Cadastro impedido.</td>
+                </tr>
+                <tr>
+                  <td>Páginas vazias, decimais ou menores que 1</td>
+                  <td>Cadastro impedido.</td>
+                </tr>
+                <tr>
+                  <td>Chave <code>biblioteca_livros</code> com conteúdo inválido</td>
+                  <td>Erro técnico no console e lista visual reconstruída vazia.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

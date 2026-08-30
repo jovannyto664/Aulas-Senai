@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 40px;
+  background-color: #e5e7eb;
+  font-family: Arial, sans-serif;
+}
+
+.painel {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 35px;
+  border-radius: 14px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.tema-claro {
+  background-color: #ffffff;
+  color: #172033;
+}
+
+.tema-escuro {
+  background-color: #172033;
+  color: #ffffff;
+}
+
+.tema-azul {
+  background-color: #dbeafe;
+  color: #123a68;
+}
+
+.botoes {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+button {
+  padding: 10px 16px;
+  border: 1px solid #94a3b8;
+  border-radius: 8px;
+  cursor: pointer;
+}

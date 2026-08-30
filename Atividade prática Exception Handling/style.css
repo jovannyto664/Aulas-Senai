@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 36px;
+  box-sizing: border-box;
+  background-color: #eef3f8;
+  color: #172033;
+  font-family: Arial, sans-serif;
+}
+
+.topo {
+  max-width: 980px;
+  margin: 0 auto 28px;
+}
+
+.tag {
+  margin: 0 0 8px;
+  color: #1557a0;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.subtitulo {
+  max-width: 620px;
+  margin: 10px 0 0;
+  color: #4f5f72;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.atividade {
+  display: block;
+  min-height: 190px;
+  padding: 22px;
+  box-sizing: border-box;
+  border: 1px solid #d5dee9;
+  border-top: 6px solid #1557a0;
+  border-radius: 8px;
+  background-color: white;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(21, 35, 57, 0.08);
+}
+
+.atividade:hover,
+.atividade:focus {
+  transform: translateY(-2px);
+  outline: none;
+  box-shadow: 0 12px 26px rgba(21, 35, 57, 0.14);
+}
+
+.atividade.personagem {
+  border-top-color: #6246a8;
+}
+
+.atividade.torneio {
+  border-top-color: #17603a;
+}
+
+.atividade.perfil {
+  border-top-color: #b76a00;
+}
+
+.numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #eef2f7;
+  color: #172033;
+  font-weight: bold;
+}
+
+.atividade h2 {
+  margin: 18px 0 10px;
+  font-size: 22px;
+}
+
+.atividade p {
+  margin: 0;
+  color: #4f5f72;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 24px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+}
