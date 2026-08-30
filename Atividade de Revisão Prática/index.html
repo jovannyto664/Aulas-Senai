@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Hobby Favorito - Jogar Videogame</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="container cabecalho__conteudo">
+            <div>
+                <p class="etiqueta">Meu hobby favorito</p>
+                <h1>Jogar videogame</h1>
+                <p id="textoDestaque" class="texto-destaque">
+                    OneShot não é o jogo que eu mais jogo, mas é o que eu mais amo pelo quanto ele é incrível.
+                </p>
+            </div>
+
+            <button id="btnTema" class="botao botao--secundario" type="button">
+                Alternar tema
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="secao secao--principal">
+            <div class="container grade-principal">
+                <article class="bloco-texto">
+                    <h2>Por que jogar é meu hobby?</h2>
+
+                    <p>
+                        Jogar videogame é o meu hobby favorito porque cada jogo pode criar um tipo diferente de
+                        experiência. Alguns jogos são feitos para competir, outros para relaxar, explorar mundos
+                        novos ou acompanhar histórias que ficam na memória por muito tempo.
+                    </p>
+
+                    <p>
+                        Entre todos eles, OneShot ocupa um lugar especial para mim. Ele talvez não seja o jogo que eu
+                        mais passo horas jogando, mas é um dos que mais me marcou pela criatividade, pela atmosfera
+                        e pela forma como faz o jogador se sentir parte da jornada.
+                    </p>
+
+                    <p>
+                        O que mais me impressiona em OneShot é como ele mistura narrativa, mistério, música e
+                        sensibilidade. É um jogo que parece simples no começo, mas entrega uma experiência única,
+                        emocional e muito diferente do comum.
+                    </p>
+
+                    <div class="acoes">
+                        <button id="btnAlterarTexto" class="botao" type="button">
+                            Mudar destaque
+                        </button>
+                        <button id="btnEstilo" class="botao" type="button">
+                            Destacar texto
+                        </button>
+                    </div>
+                </article>
+
+                <figure class="moldura-imagem">
+                    <img
+                        id="imagemHobby"
+                        src="oneshot-from-niko.png"
+                        alt="Imagem de OneShot com Niko"
+                    >
+                    <figcaption id="legendaImagem">
+                        OneShot me marcou pela história, pela atmosfera e pelo carinho nos detalhes.
+                    </figcaption>
+                    <button id="btnTrocarImagem" class="botao botao--imagem" type="button">
+                        Trocar imagem
+                    </button>
+                </figure>
+            </div>
+        </section>
+
+        <section class="secao secao--lista">
+            <div class="container grade-secundaria">
+                <article class="painel">
+                    <h2>O que torna OneShot especial?</h2>
+
+                    <ul id="listaMotivos" class="lista-motivos">
+                        <li>Tem uma narrativa criativa e muito emocional.</li>
+                        <li>Faz o jogador se sentir importante dentro da história.</li>
+                        <li>Possui uma atmosfera única, com mistério e delicadeza.</li>
+                        <li>Usa puzzles e momentos inesperados de um jeito muito marcante.</li>
+                    </ul>
+
+                    <div class="formulario-linha">
+                        <label for="novoMotivo">Adicionar novo motivo</label>
+                        <input
+                            id="novoMotivo"
+                            type="text"
+                            placeholder="Ex: a trilha sonora é inesquecível"
+                        >
+                        <button id="btnAdicionarMotivo" class="botao" type="button">
+                            Adicionar item
+                        </button>
+                    </div>
+                </article>
+
+                <article class="painel painel--interativo">
+                    <h2>Interações da página</h2>
+
+                    <div class="contador">
+                        <p>Momentos marcantes registrados:</p>
+                        <strong id="contadorCliques">0</strong>
+                    </div>
+
+                    <div class="acoes acoes--coluna">
+                        <button id="btnContador" class="botao" type="button">
+                            Registrar momento
+                        </button>
+                        <button id="btnMostrarCuriosidade" class="botao botao--secundario" type="button">
+                            Mostrar/Ocultar curiosidade
+                        </button>
+                        <button id="btnResetar" class="botao botao--alerta" type="button">
+                            Restaurar página
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="secaoCuriosidade" class="secao secao--curiosidade oculto">
+            <div class="container">
+                <article class="curiosidade">
+                    <h2>Curiosidade</h2>
+                    <p>
+                        OneShot chama atenção porque cria uma ligação muito direta entre o jogador e a história.
+                        Isso faz com que a experiência pareça mais pessoal do que apenas controlar um personagem na tela.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="secao secao--saudacao">
+            <div class="container painel-saudacao">
+                <div>
+                    <h2>Receba uma saudação personalizada</h2>
+                    <p>
+                        Digite seu nome para a página responder usando JavaScript e manipulação do DOM.
+                    </p>
+                </div>
+
+                <div class="formulario-saudacao">
+                    <label for="nomeUsuario">Seu nome</label>
+                    <input id="nomeUsuario" type="text" placeholder="Digite seu nome">
+                    <button id="btnSaudacao" class="botao" type="button">
+                        Gerar saudação
+                    </button>
+                    <p id="mensagemSaudacao" class="mensagem-saudacao"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <p>Projeto de revisão prática com HTML5, CSS3 e JavaScript.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
