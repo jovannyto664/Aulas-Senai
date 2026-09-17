@@ -1,261 +1,574 @@
-const formulario = document.getElementById("formItem");
-const pesquisa = document.getElementById("pesquisa");
-const filtroCat = document.getElementById("filtroCategoria");
-const filtroTipo = document.getElementById("filtroTipo");
-const filtroSituacao = document.getElementById("filtroSituacao");
-const mensagem = document.getElementById("mensagem");
-const listaItens = document.getElementById("listaItens");
-const estadoVazio = document.getElementById("estadoVazio");
+const STORAGE_KEY = "feira-digital-itens";
+const LEGACY_STORAGE_KEY = "itens";
+const LIMITE_DESCRICAO = 200;
+
+const exemplos = [
+  {
+    nome: "Livro de JavaScript",
+    categoria: "Livros",
+    estado: "Bom",
+    tipo: "Troca",
+    descricao: "Livro usado em ótimo estado, ideal para revisar DOM e funções.",
+    responsavel: "Ana",
+  },
+  {
+    nome: "Mochila escolar",
+    categoria: "Roupas",
+    estado: "Usado",
+    tipo: "Doação",
+    descricao: "Mochila limpa, com marcas leves de uso e zíper funcionando.",
+    responsavel: "Bruno",
+  },
+  {
+    nome: "Jogo de copos",
+    categoria: "Casa",
+    estado: "Novo",
+    tipo: "Troca",
+    descricao: "Conjunto com quatro copos ainda na embalagem.",
+    responsavel: "Carla",
+  },
+];
 
 let itens = [];
+let temporizadorMensagem = null;
+let elementos = {};
 
-function inicializarItens() {
-  const itensSalvos = localStorage.getItem("itens");
-  itens = itensSalvos ? JSON.parse(itensSalvos) : [];
+document.addEventListener("DOMContentLoaded", iniciarAplicacao);
+
+function iniciarAplicacao() {
+  selecionarElementos();
+  itens = carregarItens();
+
+  elementos.formulario.addEventListener("submit", cadastrarItem);
+  elementos.formulario.addEventListener("reset", limparFormulario);
+  elementos.listaItens.addEventListener("click", tratarCliqueDaLista);
+  elementos.pesquisa.addEventListener("input", aplicarPesquisaEFiltros);
+  elementos.filtroCategoria.addEventListener("change", aplicarPesquisaEFiltros);
+  elementos.filtroTipo.addEventListener("change", aplicarPesquisaEFiltros);
+  elementos.filtroSituacao.addEventListener("change", aplicarPesquisaEFiltros);
+  elementos.btnExemplos.addEventListener("click", carregarExemplos);
+  elementos.descricao.addEventListener("input", atualizarContadorDescricao);
+  document.addEventListener("keydown", tratarAtalhosDoTeclado);
+
+  atualizarContadorDescricao();
+  aplicarPesquisaEFiltros();
+}
+
+function selecionarElementos() {
+  elementos = {
+    formulario: document.getElementById("formItem"),
+    nome: document.getElementById("nome"),
+    categoria: document.getElementById("categoria"),
+    estado: document.getElementById("estado"),
+    tipo: document.getElementById("tipo"),
+    responsavel: document.getElementById("responsavel"),
+    descricao: document.getElementById("descricao"),
+    contadorDescricao: document.getElementById("contadorDescricao"),
+    pesquisa: document.getElementById("pesquisa"),
+    filtroCategoria: document.getElementById("filtroCategoria"),
+    filtroTipo: document.getElementById("filtroTipo"),
+    filtroSituacao: document.getElementById("filtroSituacao"),
+    mensagem: document.getElementById("mensagem"),
+    listaItens: document.getElementById("listaItens"),
+    estadoVazio: document.getElementById("estadoVazio"),
+    quantidadeResultados: document.getElementById("quantidadeResultados"),
+    totalItens: document.getElementById("totalItens"),
+    totalDisponiveis: document.getElementById("totalDisponiveis"),
+    totalReservados: document.getElementById("totalReservados"),
+    totalDoacoes: document.getElementById("totalDoacoes"),
+    btnExemplos: document.getElementById("btnExemplos"),
+  };
+}
+
+function cadastrarItem(event) {
+  event.preventDefault();
+
+  const dados = obterDadosDoFormulario();
+  const erros = validarDados(dados);
+
+  atualizarValidacaoDosCampos(erros);
+
+  if (Object.keys(erros).length > 0) {
+    mostrarMensagem("Revise os campos destacados antes de cadastrar.", "erro");
+    focarPrimeiroCampoComErro(erros);
+    return;
+  }
+
+  const item = criarItem(dados);
+  itens.push(item);
+  salvarItens();
+  elementos.formulario.reset();
+  limparFormulario();
+  aplicarPesquisaEFiltros();
+  mostrarMensagem("Item cadastrado com sucesso.", "sucesso");
+}
+
+function obterDadosDoFormulario() {
+  return {
+    nome: elementos.nome.value.trim(),
+    categoria: elementos.categoria.value,
+    estado: elementos.estado.value,
+    tipo: elementos.tipo.value,
+    responsavel: elementos.responsavel.value.trim(),
+    descricao: elementos.descricao.value.trim(),
+  };
+}
+
+function validarDados(dados) {
+  const erros = {};
+
+  if (!dados.nome) {
+    erros.nome = "Digite um nome válido.";
+  }
+
+  if (!dados.categoria) {
+    erros.categoria = "Selecione uma categoria.";
+  }
+
+  if (!dados.estado) {
+    erros.estado = "Selecione o estado de conservação.";
+  }
+
+  if (!dados.tipo) {
+    erros.tipo = "Selecione troca ou doação.";
+  }
+
+  if (!dados.responsavel) {
+    erros.responsavel = "Informe o responsável.";
+  }
+
+  if (!dados.descricao) {
+    erros.descricao = "Digite uma descrição.";
+  } else if (dados.descricao.length > LIMITE_DESCRICAO) {
+    erros.descricao = `A descrição deve ter no máximo ${LIMITE_DESCRICAO} caracteres.`;
+  }
+
+  if (existeItemIgual(dados)) {
+    erros.nome = "Já existe um item cadastrado com estes mesmos dados.";
+  }
+
+  return erros;
+}
+
+function existeItemIgual(dados) {
+  const camposComparados = [
+    "nome",
+    "categoria",
+    "estado",
+    "tipo",
+    "responsavel",
+    "descricao",
+  ];
+
+  return itens.some((item) =>
+    camposComparados.every(
+      (campo) => normalizarTexto(item[campo]) === normalizarTexto(dados[campo])
+    )
+  );
+}
+
+function atualizarValidacaoDosCampos(erros) {
+  const campos = {
+    nome: elementos.nome,
+    categoria: elementos.categoria,
+    estado: elementos.estado,
+    tipo: elementos.tipo,
+    responsavel: elementos.responsavel,
+    descricao: elementos.descricao,
+  };
+
+  Object.entries(campos).forEach(([nomeCampo, campo]) => {
+    const erro = erros[nomeCampo] || "";
+    const elementoErro = document.getElementById(`erro${capitalizar(nomeCampo)}`);
+
+    campo.classList.toggle("campo-erro", Boolean(erro));
+    campo.classList.toggle("campo-valido", !erro && Boolean(campo.value.trim()));
+    campo.setAttribute("aria-invalid", erro ? "true" : "false");
+
+    if (elementoErro) {
+      elementoErro.textContent = erro;
+    }
+  });
+}
+
+function focarPrimeiroCampoComErro(erros) {
+  const primeiroCampo = Object.keys(erros)[0];
+
+  if (primeiroCampo && elementos[primeiroCampo]) {
+    elementos[primeiroCampo].focus();
+  }
+}
+
+function limparFormulario() {
+  setTimeout(() => {
+    atualizarContadorDescricao();
+    atualizarValidacaoDosCampos({});
+  }, 0);
+}
+
+function criarItem(dados) {
+  return {
+    id: criarId(),
+    nome: dados.nome,
+    categoria: dados.categoria,
+    estado: dados.estado,
+    tipo: dados.tipo,
+    responsavel: dados.responsavel,
+    descricao: dados.descricao,
+    situacao: "disponivel",
+    criadoEm: new Date().toISOString(),
+  };
+}
+
+function criarId() {
+  if (window.crypto && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+function aplicarPesquisaEFiltros() {
+  const itensFiltrados = getItensFiltrados();
+  renderizarItens(itensFiltrados);
+  atualizarResumo();
+}
+
+function getItensFiltrados() {
+  const termo = normalizarTexto(elementos.pesquisa.value);
+  const categoria = elementos.filtroCategoria.value;
+  const tipo = elementos.filtroTipo.value;
+  const situacao = elementos.filtroSituacao.value;
+
+  return itens.filter((item) => {
+    const textoDoItem = normalizarTexto(`${item.nome} ${item.descricao}`);
+    const pesquisaOk = !termo || textoDoItem.includes(termo);
+    const categoriaOk = categoria === "Todos" || item.categoria === categoria;
+    const tipoOk = tipo === "Todos" || item.tipo === tipo;
+    const situacaoOk = situacao === "Todos" || item.situacao === situacao;
+
+    return pesquisaOk && categoriaOk && tipoOk && situacaoOk;
+  });
+}
+
+function renderizarItens(lista) {
+  elementos.listaItens.replaceChildren();
+  elementos.quantidadeResultados.textContent = `${lista.length} resultado(s)`;
+
+  if (lista.length === 0) {
+    elementos.estadoVazio.hidden = false;
+    elementos.estadoVazio.textContent =
+      itens.length === 0
+        ? "Nenhum item cadastrado ainda."
+        : "Nenhum item encontrado com os critérios atuais.";
+    return;
+  }
+
+  elementos.estadoVazio.hidden = true;
+
+  lista.forEach((item) => {
+    elementos.listaItens.appendChild(criarCartaoItem(item));
+  });
+}
+
+function criarCartaoItem(item) {
+  const reservado = item.situacao === "reservado";
+  const cartao = criarElemento("article", "cartao-item");
+  cartao.classList.add(item.situacao, criarClassePeloTexto(item.tipo));
+  cartao.dataset.id = item.id;
+
+  const topo = criarElemento("div", "cartao-topo");
+  const titulo = criarElemento("h3", "", item.nome);
+  const etiquetas = criarElemento("div", "cartao-meta");
+  etiquetas.append(
+    criarEtiqueta(textoSituacao(item), item.situacao),
+    criarEtiqueta(item.tipo, criarClassePeloTexto(item.tipo))
+  );
+  topo.append(titulo, etiquetas);
+
+  const descricao = criarElemento("p", "cartao-descricao", item.descricao);
+  const detalhes = criarElemento("dl", "detalhes-item");
+  adicionarDetalhe(detalhes, "Categoria", item.categoria);
+  adicionarDetalhe(detalhes, "Estado", item.estado);
+  adicionarDetalhe(detalhes, "Responsável", item.responsavel);
+  adicionarDetalhe(detalhes, "Cadastro", formatarData(item.criadoEm));
+
+  const acoes = criarElemento("div", "acoes-cartao");
+  const botaoSituacao = criarElemento(
+    "button",
+    reservado ? "btn-secundario" : "btn-principal",
+    reservado ? "Disponibilizar novamente" : "Reservar item"
+  );
+  botaoSituacao.type = "button";
+  botaoSituacao.dataset.acao = reservado ? "disponibilizar" : "reservar";
+  botaoSituacao.dataset.id = item.id;
+
+  const botaoExcluir = criarElemento("button", "btn-excluir", "Excluir");
+  botaoExcluir.type = "button";
+  botaoExcluir.dataset.acao = "excluir";
+  botaoExcluir.dataset.id = item.id;
+
+  acoes.append(botaoSituacao, botaoExcluir);
+  cartao.append(topo, descricao, detalhes, acoes);
+
+  return cartao;
+}
+
+function criarEtiqueta(texto, classe) {
+  return criarElemento("span", `etiqueta ${classe}`, texto);
+}
+
+function adicionarDetalhe(lista, termo, descricao) {
+  const dt = criarElemento("dt", "", `${termo}:`);
+  const dd = criarElemento("dd", "", descricao);
+
+  lista.append(dt, dd);
+}
+
+function tratarCliqueDaLista(event) {
+  const botao = event.target.closest("button[data-acao]");
+
+  if (!botao) {
+    return;
+  }
+
+  const { acao, id } = botao.dataset;
+
+  if (acao === "reservar") {
+    alterarSituacao(id, "reservado");
+  }
+
+  if (acao === "disponibilizar") {
+    alterarSituacao(id, "disponivel");
+  }
+
+  if (acao === "excluir") {
+    confirmarExclusao(id);
+  }
+}
+
+function alterarSituacao(id, novaSituacao) {
+  const item = itens.find((itemAtual) => itemAtual.id === id);
+
+  if (!item) {
+    return;
+  }
+
+  item.situacao = novaSituacao;
+  salvarItens();
+  aplicarPesquisaEFiltros();
+
+  const texto =
+    novaSituacao === "reservado"
+      ? "Item reservado com sucesso."
+      : "Item disponibilizado novamente.";
+
+  mostrarMensagem(texto, "sucesso");
+}
+
+function confirmarExclusao(id) {
+  const item = itens.find((itemAtual) => itemAtual.id === id);
+
+  if (!item) {
+    return;
+  }
+
+  const confirmado = window.confirm(`Deseja excluir "${item.nome}"?`);
+
+  if (!confirmado) {
+    mostrarMensagem("Exclusão cancelada.", "aviso");
+    return;
+  }
+
+  excluirItem(id);
+}
+
+function excluirItem(id) {
+  itens = itens.filter((item) => item.id !== id);
+  salvarItens();
+  aplicarPesquisaEFiltros();
+  mostrarMensagem("Item excluído com sucesso.", "aviso");
+}
+
+function atualizarResumo() {
+  const total = itens.length;
+  const disponiveis = itens.filter((item) => item.situacao === "disponivel").length;
+  const reservados = itens.filter((item) => item.situacao === "reservado").length;
+  const doacoes = itens.filter((item) => item.tipo === "Doação").length;
+
+  elementos.totalItens.textContent = total;
+  elementos.totalDisponiveis.textContent = disponiveis;
+  elementos.totalReservados.textContent = reservados;
+  elementos.totalDoacoes.textContent = doacoes;
+}
+
+function carregarExemplos() {
+  let adicionados = 0;
+
+  exemplos.forEach((exemplo) => {
+    if (!existeItemIgual(exemplo)) {
+      itens.push(criarItem(exemplo));
+      adicionados += 1;
+    }
+  });
+
+  if (adicionados === 0) {
+    mostrarMensagem("Os exemplos já estavam cadastrados.", "aviso");
+    return;
+  }
+
+  salvarItens();
+  aplicarPesquisaEFiltros();
+  mostrarMensagem(`${adicionados} exemplo(s) carregado(s).`, "sucesso");
+}
+
+function atualizarContadorDescricao() {
+  const tamanho = elementos.descricao.value.length;
+  elementos.contadorDescricao.textContent = `${tamanho}/${LIMITE_DESCRICAO}`;
+}
+
+function tratarAtalhosDoTeclado(event) {
+  const digitandoEmCampo = ["INPUT", "SELECT", "TEXTAREA"].includes(
+    document.activeElement.tagName
+  );
+
+  if (event.key === "/" && !digitandoEmCampo) {
+    event.preventDefault();
+    elementos.pesquisa.focus();
+    elementos.pesquisa.select();
+  }
+
+  if (event.key === "Escape" && elementos.pesquisa.value) {
+    elementos.pesquisa.value = "";
+    aplicarPesquisaEFiltros();
+    elementos.pesquisa.focus();
+    mostrarMensagem("Pesquisa limpa.", "aviso");
+  }
+}
+
+function salvarItens() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(itens));
+}
+
+function carregarItens() {
+  const dadosSalvos =
+    localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
+
+  if (!dadosSalvos) {
+    return [];
+  }
+
+  try {
+    const dados = JSON.parse(dadosSalvos);
+
+    if (!Array.isArray(dados)) {
+      return [];
+    }
+
+    return dados.map(normalizarItemSalvo).filter(Boolean);
+  } catch (erro) {
+    mostrarMensagem("Não foi possível recuperar os dados salvos.", "erro");
+    return [];
+  }
+}
+
+function normalizarItemSalvo(item) {
+  if (!item || typeof item !== "object") {
+    return null;
+  }
+
+  return {
+    id: item.id || criarId(),
+    nome: item.nome || "Item sem nome",
+    categoria: corrigirTexto(item.categoria) || "Outros",
+    estado: corrigirTexto(item.estado) || "Não informado",
+    tipo: normalizarTipo(item.tipo),
+    responsavel: item.responsavel || "Não informado",
+    descricao: item.descricao || "Sem descrição.",
+    situacao: item.situacao === "reservado" ? "reservado" : "disponivel",
+    criadoEm: item.criadoEm || new Date().toISOString(),
+  };
+}
+
+function normalizarTipo(tipo) {
+  const tipoCorrigido = corrigirTexto(tipo);
+  const texto = normalizarTexto(tipoCorrigido);
+
+  if (texto.includes("doacao")) {
+    return "Doação";
+  }
+
+  return "Troca";
+}
+
+function corrigirTexto(texto = "") {
+  const correcoes = {
+    "EletrÃ´nicos": "Eletrônicos",
+    "DoaÃ§Ã£o": "Doação",
+    "DisponÃ­vel": "Disponível",
+  };
+
+  return correcoes[texto] || texto;
+}
+
+function mostrarMensagem(texto, tipo = "aviso") {
+  clearTimeout(temporizadorMensagem);
+  elementos.mensagem.textContent = texto;
+  elementos.mensagem.className = `mensagem ${tipo}`;
+  elementos.mensagem.hidden = false;
+
+  temporizadorMensagem = setTimeout(() => {
+    elementos.mensagem.textContent = "";
+    elementos.mensagem.className = "mensagem";
+    elementos.mensagem.hidden = true;
+  }, 3200);
+}
+
+function criarElemento(tag, classe = "", texto = "") {
+  const elemento = document.createElement(tag);
+
+  if (classe) {
+    elemento.className = classe;
+  }
+
+  if (texto) {
+    elemento.textContent = texto;
+  }
+
+  return elemento;
+}
+
+function criarClassePeloTexto(texto) {
+  return normalizarTexto(texto)
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function textoSituacao(item) {
+  return item.situacao === "reservado" ? "Reservado" : "Disponível";
+}
+
+function formatarData(data) {
+  const dataValida = new Date(data);
+
+  if (Number.isNaN(dataValida.getTime())) {
+    return "Data não informada";
+  }
+
+  return new Intl.DateTimeFormat("pt-BR", {
+    dateStyle: "short",
+    timeStyle: "short",
+  }).format(dataValida);
 }
 
 function normalizarTexto(texto = "") {
-  return texto
+  return String(texto)
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .trim();
 }
 
-function salvarItens() {
-  localStorage.setItem("itens", JSON.stringify(itens));
+function capitalizar(texto) {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
-
-function mostrarMensagem(texto, tipo = "info") {
-  mensagem.textContent = texto;
-  mensagem.className = tipo;
-  mensagem.hidden = false;
-
-  clearTimeout(mensagem.timer);
-  mensagem.timer = setTimeout(() => {
-    mensagem.textContent = "";
-    mensagem.hidden = true;
-    mensagem.className = "";
-  }, 2500);
-}
-
-function atualizarResumo() {
-  const totalItens = itens.length;
-  const totalDisponiveis = itens.filter(item => item.situacao === "disponivel").length;
-  const totalReservados = itens.filter(item => item.situacao === "reservado").length;
-  const totalDoacoes = itens.filter(item => item.tipo === "Doação").length;
-
-  document.getElementById("totalItens").textContent = totalItens;
-  document.getElementById("totalDisponiveis").textContent = totalDisponiveis;
-  document.getElementById("totalReservados").textContent = totalReservados;
-  document.getElementById("totalDoacoes").textContent = totalDoacoes;
-}
-
-function validarDados({ nome, categoria, tipo, estado, descricao, responsavel }) {
-  if (!nome) return "Digite um nome válido.";
-  if (!categoria) return "Selecione a categoria.";
-  if (!tipo) return "Selecione o tipo de disponibilidade.";
-  if (!estado) return "Selecione o estado.";
-  if (!descricao) return "Digite uma descrição válida.";
-  if (!responsavel) return "Digite um responsável válido.";
-  return "";
-}
-
-function criarItem(dados) {
-  const id = typeof crypto !== "undefined" && crypto.randomUUID
-    ? crypto.randomUUID()
-    : `${Date.now()}-${performance.now().toFixed(0)}`;
-
-  return {
-    id,
-    nome: dados.nome,
-    categoria: dados.categoria,
-    estado: dados.estado,
-    tipo: dados.tipo,
-    descricao: dados.descricao,
-    responsavel: dados.responsavel,
-    situacao: "disponivel"
-  };
-}
-
-function renderizarItensLista(lista) {
-  listaItens.innerHTML = "";
-  
-  if (lista.length === 0) {
-    estadoVazio.textContent = "Nenhum item encontrado com os critérios atuais.";
-    estadoVazio.style.display = "block";
-    return;
-  }
-
-  estadoVazio.style.display = "none";
-
-  lista.forEach((item) => {
-    const card = document.createElement("article");
-    const reservado = item.situacao === "reservado";
-
-    card.className = reservado ? "card reservado" : "card disponivel";
-
-    card.innerHTML = `
-      <h3>${item.nome}</h3>
-      <p><strong>Categoria:</strong> ${item.categoria}</p>
-      <p><strong>Estado:</strong> ${item.estado}</p>
-      <p><strong>Tipo:</strong> ${item.tipo}</p>
-      <p><strong>Descrição:</strong> ${item.descricao}</p>
-      <p><strong>Responsável:</strong> ${item.responsavel}</p>
-      <p><strong>Situação:</strong> ${reservado ? "Reservado" : "Disponível"}</p>
-
-      <button data-id="${item.id}" data-acao="${reservado ? "disponibilizar" : "reservar"}">
-        ${reservado ? "Disponibilizar" : "Reservar"}
-      </button>
-
-      <button data-id="${item.id}" data-acao="excluir">Excluir</button>
-    `;
-
-    listaItens.appendChild(card);
-  });
-}
-
-function renderizarItens() {
-  renderizarItensLista(itens);
-}
-
-function getItensFiltrados() {
-  const termoBusca = normalizarTexto(pesquisa.value);
-  const categoria = filtroCat.value;
-  const tipo = filtroTipo.value;
-  const situacao = filtroSituacao.value;
-
-  return itens.filter((item) => {
-    const nome = normalizarTexto(item.nome);
-    const descricao = normalizarTexto(item.descricao);
-
-    const pesquisaOk =
-      termoBusca === "" ||
-      nome.includes(termoBusca) ||
-      descricao.includes(termoBusca);
-
-    const categoriaOk =
-      categoria === "Todos" || item.categoria === categoria;
-
-    const tipoOk =
-      tipo === "Todos" || item.tipo === tipo;
-
-    const situacaoOk =
-      situacao === "Todos" ||
-      (situacao === "Disponível" && item.situacao === "disponivel") ||
-      (situacao === "Reservado" && item.situacao === "reservado");
-
-    return pesquisaOk && categoriaOk && tipoOk && situacaoOk;
-  });
-}
-
-function renderizarItensFiltrados() {
-  renderizarItensLista(getItensFiltrados());
-}
-
-function alterarSituacao(id, novaSituacao) {
-  const item = itens.find((i) => i.id === id);
-
-  if (!item) return;
-
-  item.situacao = novaSituacao;
-  salvarItens();
-  atualizarResumo();
-  renderizarItensFiltrados();
-  mostrarMensagem(
-    novaSituacao === "reservado"
-      ? "Item reservado com sucesso."
-      : "Item disponibilizado novamente.",
-    "info"
-  );
-}
-
-function excluirItem(id) {
-  const index = itens.findIndex((i) => i.id === id);
-
-  if (index === -1) return;
-
-  itens.splice(index, 1);
-  salvarItens();
-  atualizarResumo();
-  renderizarItensFiltrados();
-  mostrarMensagem("Item excluído com sucesso.", "aviso");
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  inicializarItens();
-  renderizarItensFiltrados();
-  atualizarResumo();
-
-  formulario.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const dados = new FormData(formulario);
-    const nome = dados.get("nome")?.trim();
-    const descricao = dados.get("descricao")?.trim();
-    const responsavel = dados.get("responsavel")?.trim();
-    const categoria = dados.get("categoria")?.trim();
-    const estado = dados.get("estado")?.trim();
-    const tipo = dados.get("tipo")?.trim();
-
-    const erro = validarDados({ nome, categoria, tipo, estado, descricao, responsavel });
-
-    if (erro) {
-      mostrarMensagem(erro, "erro");
-      return;
-    }
-
-    const item = criarItem({ nome, categoria, estado, tipo, descricao, responsavel });
-    itens.push(item);
-
-    salvarItens();
-    atualizarResumo();
-    renderizarItensFiltrados();
-    formulario.reset();
-    mostrarMensagem("Item cadastrado com sucesso!", "sucesso");
-  });
-
-  listaItens.addEventListener("click", (event) => {
-    const botao = event.target.closest("button");
-
-    if (!botao) return;
-
-    const acao = botao.dataset.acao;
-    const id = botao.dataset.id;
-
-    if (acao === "reservar") {
-      alterarSituacao(id, "reservado");
-    }
-
-    if (acao === "disponibilizar") {
-      alterarSituacao(id, "disponivel");
-    }
-
-    if (acao === "excluir") {
-      const confirmar = confirm("Deseja realmente excluir este item?");
-      if (confirmar) {
-        excluirItem(id);
-      }
-    }
-  });
-
-  pesquisa.addEventListener("input", renderizarItensFiltrados);
-  filtroCat.addEventListener("change", renderizarItensFiltrados);
-  filtroTipo.addEventListener("change", renderizarItensFiltrados);
-  filtroSituacao.addEventListener("change", renderizarItensFiltrados);
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "/" && document.activeElement !== pesquisa) {
-      event.preventDefault();
-      pesquisa.focus();
-      pesquisa.select();
-    }
-
-    if (event.key === "Escape") {
-      pesquisa.value = "";
-      renderizarItensFiltrados();
-      pesquisa.focus();
-    }
-  });
-});
-

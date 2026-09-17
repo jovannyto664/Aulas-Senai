@@ -1,227 +1,226 @@
 <!doctype html>
-
-<!-- Define que o documento utiliza HTML5 -->
 <html lang="pt-BR">
-  <!-- Contém informações da página que não aparecem no conteúdo -->
   <head>
-    <!-- Define a codificação de caracteres -->
     <meta charset="UTF-8" />
-
-    <!-- Configura a responsividade em dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- Define o título exibido na aba do navegador -->
     <title>Feira Digital de Trocas</title>
-
-    <!-- Faz a ligação com o arquivo CSS -->
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
 
-  <!-- Contém todo o conteúdo visível da página -->
   <body>
-    <!-- Cabeçalho principal da página -->
-    <header>
-      <p>Gabarito para demonstração</p>
-
-      <h1>Feira Digital de Trocas</h1>
-
-      <p>
-        Cadastre itens para troca ou doação, pesquise, filtre, reserve e
-        mantenha os dados salvos no navegador.
-      </p>
-
-      <p>
-        Atalho: pressione <strong>/</strong> para focar a pesquisa e
-        <strong>Esc</strong> para limpá-la.
-      </p>
+    <header class="topo">
+      <div class="container topo-conteudo">
+        <p class="selo">Atividade final de fixação</p>
+        <h1>Feira Digital de Trocas</h1>
+        <p>
+          Cadastre objetos para troca ou doação, pesquise itens da comunidade,
+          reserve o que interessar e mantenha tudo salvo no navegador.
+        </p>
+        <p class="atalhos">
+          Atalhos: pressione <kbd>/</kbd> para focar a pesquisa e
+          <kbd>Esc</kbd> para limpar a busca.
+        </p>
+      </div>
     </header>
 
-    <!-- Exibe mensagens de sucesso, erro ou aviso -->
-    <div id="mensagem" aria-live="polite"></div>
+    <main class="container">
+      <div id="mensagem" class="mensagem" role="status" aria-live="polite" hidden></div>
 
-    <!-- Agrupa conteúdos relacionados da página -->
-    <section>
-      <h2>Cadastrar item</h2>
-
-      <!-- Formulário para envio de dados -->
-      <form id="formItem" novalidate>
-        <!-- Agrupa campos relacionados -->
-        <div>
-          <!-- Identifica um campo do formulário -->
-          <label for="nome">Nome do item *</label>
-
-          <!-- Campo de entrada de texto -->
-          <input
-            type="text"
-            id="nome"
-            name="nome"
-            maxlength="60"
-            placeholder="Ex.: Livro de JavaScript"
-          />
+      <section class="painel" aria-labelledby="tituloCadastro">
+        <div class="cabecalho-secao">
+          <h2 id="tituloCadastro">Cadastrar item</h2>
+          <p>Campos marcados com * são obrigatórios.</p>
         </div>
 
-        <div>
-          <label for="categoria">Categoria *</label>
+        <form id="formItem" class="formulario" novalidate>
+          <div class="campo">
+            <label for="nome">Nome do item *</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              maxlength="60"
+              autocomplete="off"
+              placeholder="Ex.: Livro de JavaScript"
+              aria-describedby="erroNome"
+            />
+            <span id="erroNome" class="erro-campo"></span>
+          </div>
 
-          <!-- Lista suspensa de opções -->
-          <select id="categoria" name="categoria">
-            <option value="">Selecione</option>
-            <option value="Livros">Livros</option>
-            <option value="Eletrônicos">Eletrônicos</option>
-            <option value="Roupas">Roupas</option>
-            <option value="Casa">Casa</option>
-            <option value="Esportes">Esportes</option>
-            <option value="Outros">Outros</option>
-          </select>
+          <div class="campo">
+            <label for="categoria">Categoria *</label>
+            <select id="categoria" name="categoria" aria-describedby="erroCategoria">
+              <option value="">Selecione</option>
+              <option value="Livros">Livros</option>
+              <option value="Eletrônicos">Eletrônicos</option>
+              <option value="Roupas">Roupas</option>
+              <option value="Casa">Casa</option>
+              <option value="Esportes">Esportes</option>
+              <option value="Outros">Outros</option>
+            </select>
+            <span id="erroCategoria" class="erro-campo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="estado">Estado de conservação *</label>
+            <select id="estado" name="estado" aria-describedby="erroEstado">
+              <option value="">Selecione</option>
+              <option value="Novo">Novo</option>
+              <option value="Bom">Bom</option>
+              <option value="Usado">Usado</option>
+              <option value="Precisa de reparo">Precisa de reparo</option>
+            </select>
+            <span id="erroEstado" class="erro-campo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="tipo">Tipo de disponibilidade *</label>
+            <select id="tipo" name="tipo" aria-describedby="erroTipo">
+              <option value="">Selecione</option>
+              <option value="Troca">Troca</option>
+              <option value="Doação">Doação</option>
+            </select>
+            <span id="erroTipo" class="erro-campo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="responsavel">Responsável *</label>
+            <input
+              type="text"
+              id="responsavel"
+              name="responsavel"
+              maxlength="40"
+              autocomplete="off"
+              placeholder="Nome ou identificação"
+              aria-describedby="erroResponsavel"
+            />
+            <span id="erroResponsavel" class="erro-campo"></span>
+          </div>
+
+          <div class="campo campo-grande">
+            <label for="descricao">Descrição curta *</label>
+            <textarea
+              id="descricao"
+              name="descricao"
+              rows="4"
+              maxlength="200"
+              placeholder="Descreva o item e informe detalhes importantes."
+              aria-describedby="erroDescricao contadorDescricao"
+            ></textarea>
+            <div class="linha-ajuda">
+              <span id="contadorDescricao">0/200</span>
+              <span id="erroDescricao" class="erro-campo"></span>
+            </div>
+          </div>
+
+          <div class="acoes-formulario">
+            <button type="submit" class="btn-principal">Adicionar item</button>
+            <button type="button" id="btnExemplos" class="btn-secundario">
+              Carregar exemplos
+            </button>
+            <button type="reset" id="btnLimparFormulario" class="btn-texto">
+              Limpar formulário
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="resumo" aria-labelledby="tituloResumo">
+        <div class="cabecalho-secao">
+          <h2 id="tituloResumo">Resumo</h2>
+          <p>Os números mudam automaticamente após cada ação.</p>
         </div>
 
-        <div>
-          <label for="estado">Estado de conservação *</label>
+        <div class="grade-resumo">
+          <article class="item-resumo">
+            <span>Total</span>
+            <strong id="totalItens">0</strong>
+          </article>
 
-          <select id="estado" name="estado">
-            <option value="">Selecione</option>
-            <option value="Novo">Novo</option>
-            <option value="Bom">Bom</option>
-            <option value="Usado">Usado</option>
-            <option value="Precisa de reparo">Precisa de reparo</option>
-          </select>
+          <article class="item-resumo item-resumo-disponivel">
+            <span>Disponíveis</span>
+            <strong id="totalDisponiveis">0</strong>
+          </article>
+
+          <article class="item-resumo item-resumo-reservado">
+            <span>Reservados</span>
+            <strong id="totalReservados">0</strong>
+          </article>
+
+          <article class="item-resumo item-resumo-doacao">
+            <span>Doações</span>
+            <strong id="totalDoacoes">0</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="painel" aria-labelledby="tituloFiltros">
+        <div class="cabecalho-secao">
+          <h2 id="tituloFiltros">Pesquisa e filtros</h2>
+          <p>Combine busca, categoria, tipo e situação.</p>
         </div>
 
-        <div>
-          <label for="tipo">Disponibilidade *</label>
+        <div class="filtros">
+          <div class="campo campo-pesquisa">
+            <label for="pesquisa">Pesquisar</label>
+            <input
+              type="search"
+              id="pesquisa"
+              placeholder="Nome ou descrição"
+              autocomplete="off"
+            />
+          </div>
 
-          <select id="tipo" name="tipo">
-            <option value="">Selecione</option>
-            <option value="Troca">Troca</option>
-            <option value="Doação">Doação</option>
-          </select>
+          <div class="campo">
+            <label for="filtroCategoria">Categoria</label>
+            <select id="filtroCategoria">
+              <option value="Todos">Todas</option>
+              <option value="Livros">Livros</option>
+              <option value="Eletrônicos">Eletrônicos</option>
+              <option value="Roupas">Roupas</option>
+              <option value="Casa">Casa</option>
+              <option value="Esportes">Esportes</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="filtroTipo">Tipo</label>
+            <select id="filtroTipo">
+              <option value="Todos">Todos</option>
+              <option value="Troca">Troca</option>
+              <option value="Doação">Doação</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="filtroSituacao">Situação</label>
+            <select id="filtroSituacao">
+              <option value="Todos">Todos</option>
+              <option value="disponivel">Disponíveis</option>
+              <option value="reservado">Reservados</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="lista-secao" aria-labelledby="tituloLista">
+        <div class="cabecalho-lista">
+          <div>
+            <h2 id="tituloLista">Itens cadastrados</h2>
+            <p>Use os botões do cartão para reservar, disponibilizar ou excluir.</p>
+          </div>
+          <span id="quantidadeResultados">0 resultado(s)</span>
         </div>
 
-        <div>
-          <label for="responsavel">Responsável *</label>
+        <div id="listaItens" class="lista-itens" aria-live="polite"></div>
+        <p id="estadoVazio" class="estado-vazio">Nenhum item cadastrado ainda.</p>
+      </section>
+    </main>
 
-          <input
-            type="text"
-            id="responsavel"
-            name="responsavel"
-            maxlength="40"
-            placeholder="Nome do responsável"
-          />
-        </div>
-
-        <div>
-          <label for="descricao">Descrição *</label>
-
-          <!-- Campo para textos maiores -->
-          <textarea
-            id="descricao"
-            name="descricao"
-            rows="4"
-            maxlength="180"
-            placeholder="Descreva o item de forma breve."
-          ></textarea>
-        </div>
-
-        <!-- Botão para executar ações -->
-        <button type="submit">Adicionar item</button>
-
-        <button type="button" id="btnExemplos">Carregar exemplos</button>
-
-        <button type="button" id="btnLimparTudo">Limpar tudo</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>Resumo</h2>
-
-      <div>
-        <div>
-          <span>Total</span>
-          <strong id="totalItens">0</strong>
-        </div>
-
-        <div>
-          <span>Disponíveis</span>
-          <strong id="totalDisponiveis">0</strong>
-        </div>
-
-        <div>
-          <span>Reservados</span>
-          <strong id="totalReservados">0</strong>
-        </div>
-
-        <div>
-          <span>Doações</span>
-          <strong id="totalDoacoes">0</strong>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Pesquisa e filtros</h2>
-
-      <div>
-        <div>
-          <label for="pesquisa">Pesquisar</label>
-
-          <input type="search" id="pesquisa" placeholder="Nome ou descrição" />
-        </div>
-
-        <div>
-          <label for="filtroCategoria">Categoria</label>
-
-          <select id="filtroCategoria">
-            <option value="Todos">Todas</option>
-            <option value="Livros">Livros</option>
-            <option value="Eletrônicos">Eletrônicos</option>
-            <option value="Roupas">Roupas</option>
-            <option value="Casa">Casa</option>
-            <option value="Esportes">Esportes</option>
-            <option value="Outros">Outros</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="filtroTipo">Tipo</label>
-
-          <select id="filtroTipo">
-            <option value="Todos">Todos</option>
-            <option value="Troca">Troca</option>
-            <option value="Doação">Doação</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="filtroSituacao">Situação</label>
-
-          <select id="filtroSituacao">
-            <option value="Todos">Todos</option>
-            <option value="Disponível">Disponíveis</option>
-            <option value="Reservado">Reservados</option>
-          </select>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div>
-        <h2>Itens cadastrados</h2>
-        <span id="quantidadeResultados">0 resultado(s)</span>
-      </div>
-
-      <!-- Local onde os itens serão inseridos pelo JavaScript -->
-      <div id="listaItens"></div>
-
-      <div id="estadoVazio">Nenhum item cadastrado.</div>
-    </section>
-
-    <!-- Rodapé da página -->
-    <footer>
-      Demonstração completa de HTML, CSS, JavaScript, eventos, DOM, funções e
-      Local Storage.
+    <footer class="rodape">
+      Projeto com HTML, CSS, JavaScript, DOM, eventos, funções e Local Storage.
     </footer>
-
-    <!-- Faz a ligação com o arquivo JavaScript -->
-    <script src="script.js"></script>
   </body>
 </html>

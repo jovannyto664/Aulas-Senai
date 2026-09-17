@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentação - Feira Digital de Trocas</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <div class="barra-acoes" aria-label="Ações da documentação">
+      <a href="../Atividade final de fixação - Feira Digital de Trocas/index.html">Abrir projeto</a>
+      <button type="button" id="btnImprimir">Gerar PDF</button>
+    </div>
+
+    <main class="documento">
+      <section class="capa pagina">
+        <p class="instituicao">Instituição: SENAC</p>
+        <p>Unidade curricular: Desenvolvimento Web</p>
+        <p>Projeto: Feira Digital de Trocas</p>
+        <h1>Primeira Documentação de um Projeto de Software</h1>
+        <dl class="dados-capa">
+          <div>
+            <dt>Aluno(a)</dt>
+            <dd>Jeová</dd>
+          </div>
+          <div>
+            <dt>Turma</dt>
+            <dd>Preencher com a turma</dd>
+          </div>
+          <div>
+            <dt>Data</dt>
+            <dd>30 de agosto de 2026</dd>
+          </div>
+        </dl>
+      </section>
+
+      <nav class="sumario pagina" aria-labelledby="tituloSumario">
+        <h2 id="tituloSumario">Sumário</h2>
+        <ol>
+          <li><a href="#pesquisa">Pesquisa sobre documentação</a></li>
+          <li><a href="#elementos">Elementos importantes</a></li>
+          <li><a href="#boas-praticas">Boas práticas para entrega</a></li>
+          <li><a href="#projeto">Apresentação do projeto</a></li>
+          <li><a href="#tecnologias">Tecnologias utilizadas</a></li>
+          <li><a href="#funcionalidades">Funcionalidades</a></li>
+          <li><a href="#dados">Dados utilizados e armazenamento</a></li>
+          <li><a href="#telas">Telas da aplicação</a></li>
+          <li><a href="#eventos">Eventos e interações</a></li>
+          <li><a href="#funcionamento">Funcionamento da aplicação</a></li>
+          <li><a href="#dificuldades">Dificuldades, soluções e melhorias</a></li>
+          <li><a href="#conclusao">Conclusão</a></li>
+          <li><a href="#referencias">Referências</a></li>
+        </ol>
+      </nav>
+
+      <section id="pesquisa" class="pagina">
+        <h2>1. Pesquisa sobre documentação de software</h2>
+
+        <h3>O que é documentação de software?</h3>
+        <p>
+          Documentação de software é o conjunto de textos, imagens, tabelas,
+          explicações e registros que ajudam uma pessoa a entender um sistema.
+          Ela não substitui o código-fonte, mas explica o objetivo do projeto,
+          como ele foi organizado, quais tecnologias foram usadas, quais dados
+          são tratados e como o usuário interage com a aplicação.
+        </p>
+
+        <h3>Para que serve?</h3>
+        <p>
+          A documentação serve para orientar o uso, facilitar a manutenção,
+          registrar decisões tomadas durante o desenvolvimento e permitir que
+          outras pessoas compreendam o projeto sem depender apenas da leitura
+          direta do código. Ela também ajuda o próprio desenvolvedor a lembrar
+          como o sistema funciona depois de algum tempo.
+        </p>
+
+        <h3>Por que documentar um projeto?</h3>
+        <p>
+          Um projeto documentado fica mais fácil de apresentar, testar, corrigir
+          e evoluir. Sem documentação, uma alteração simples pode demorar mais,
+          porque a pessoa precisa descobrir sozinha onde cada coisa está, qual é
+          a função de cada arquivo e quais regras não podem ser quebradas.
+        </p>
+
+        <h3>Quem utiliza a documentação?</h3>
+        <p>
+          A documentação pode ser usada por estudantes, professores, usuários,
+          desenvolvedores, avaliadores e qualquer pessoa que precise entender a
+          aplicação. Cada público procura informações diferentes: o usuário quer
+          saber como usar, o professor avalia o que foi feito e o desenvolvedor
+          precisa entender a estrutura técnica.
+        </p>
+
+        <h3>Existe apenas um tipo de documentação?</h3>
+        <p>
+          Não. Existem documentos de apresentação, guias de uso, tutoriais,
+          documentação técnica, documentação de referência, registros de decisão
+          e documentação de manutenção. O modelo Diátaxis organiza a documentação
+          em quatro necessidades principais: aprender, executar uma tarefa,
+          consultar informações e entender conceitos.
+        </p>
+
+        <h3>O que torna uma documentação fácil de entender?</h3>
+        <p>
+          Uma documentação fica clara quando usa títulos objetivos, linguagem
+          simples, ordem lógica, exemplos verdadeiros, imagens explicadas,
+          tabelas quando ajudam a comparar informações e referências das fontes
+          pesquisadas. Também é importante não inventar funcionalidades e não
+          transformar o documento em uma cópia do código-fonte.
+        </p>
+      </section>
+
+      <section id="elementos" class="pagina">
+        <h2>2. Elementos importantes de uma documentação</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Elemento</th>
+              <th>Para que serve</th>
+              <th>Informações que podem aparecer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Capa</td>
+              <td>Identifica o trabalho entregue.</td>
+              <td>Instituição, unidade curricular, nome do projeto, aluno, turma e data.</td>
+            </tr>
+            <tr>
+              <td>Apresentação do projeto</td>
+              <td>Explica o que foi desenvolvido e qual problema a aplicação resolve.</td>
+              <td>Objetivo, contexto, público-alvo e resumo da solução.</td>
+            </tr>
+            <tr>
+              <td>Tecnologias utilizadas</td>
+              <td>Mostra quais recursos técnicos foram usados e por quê.</td>
+              <td>HTML, CSS, JavaScript, DOM, eventos, JSON e Local Storage.</td>
+            </tr>
+            <tr>
+              <td>Funcionalidades</td>
+              <td>Registra o que o sistema realmente permite fazer.</td>
+              <td>Cadastro, validação, filtros, reserva, exclusão e persistência dos dados.</td>
+            </tr>
+            <tr>
+              <td>Estrutura dos dados</td>
+              <td>Ajuda a entender quais informações são guardadas e manipuladas.</td>
+              <td>Campos do item, identificador, situação, data de cadastro e chave do armazenamento.</td>
+            </tr>
+            <tr>
+              <td>Telas da aplicação</td>
+              <td>Facilita a leitura visual do projeto.</td>
+              <td>Capturas, títulos, legendas e explicações das ações possíveis.</td>
+            </tr>
+            <tr>
+              <td>Eventos e interações</td>
+              <td>Explica como as ações do usuário acionam o JavaScript.</td>
+              <td>Eventos de envio, clique, digitação, alteração de filtros e teclado.</td>
+            </tr>
+            <tr>
+              <td>Dificuldades e soluções</td>
+              <td>Registra aprendizados reais do desenvolvimento.</td>
+              <td>Problemas encontrados, tentativas, solução aplicada e melhorias futuras.</td>
+            </tr>
+            <tr>
+              <td>Referências</td>
+              <td>Dá crédito às fontes pesquisadas e permite consulta posterior.</td>
+              <td>Links, nome da fonte e assunto pesquisado.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="boas-praticas" class="pagina">
+        <h2>3. Boas práticas para entrega de uma documentação</h2>
+        <ol class="lista-detalhada">
+          <li>
+            <strong>Organizar títulos e subtítulos.</strong> Eles criam uma
+            sequência de leitura e ajudam a localizar rapidamente cada assunto.
+          </li>
+          <li>
+            <strong>Usar linguagem clara.</strong> O texto deve explicar o
+            projeto com palavras próprias, sem depender de frases copiadas de
+            sites ou do próprio código.
+          </li>
+          <li>
+            <strong>Inserir imagens com legenda.</strong> Cada captura precisa
+            ter título e explicação, pois a imagem sozinha não mostra o motivo
+            de aquela tela existir.
+          </li>
+          <li>
+            <strong>Utilizar tabelas apenas quando ajudam.</strong> Tabelas são
+            úteis para comparar tecnologias, dados, eventos e funcionalidades,
+            mas não devem substituir toda a explicação.
+          </li>
+          <li>
+            <strong>Manter fidelidade ao projeto.</strong> A documentação deve
+            falar somente das funcionalidades realmente desenvolvidas.
+          </li>
+          <li>
+            <strong>Registrar referências.</strong> As fontes consultadas devem
+            aparecer no final do documento, com links e indicação do assunto.
+          </li>
+          <li>
+            <strong>Revisar antes de entregar.</strong> É importante conferir
+            ortografia, nomes de arquivos, organização visual e se o PDF abre
+            corretamente.
+          </li>
+          <li>
+            <strong>Nomear o arquivo de forma padronizada.</strong> Para esta
+            atividade, o formato pedido é
+            <code>Documentacao_FeiraDigital_NomeSobrenome.pdf</code>.
+          </li>
+        </ol>
+      </section>
+
+      <section id="projeto" class="pagina">
+        <h2>4. Apresentação do projeto</h2>
+        <p>
+          A aplicação <strong>Feira Digital de Trocas</strong> é uma página web
+          criada para cadastrar objetos que podem ser trocados ou doados. Ela
+          permite organizar uma pequena feira comunitária diretamente no
+          navegador, sem banco de dados externo.
+        </p>
+
+        <dl class="grade-definicoes">
+          <div>
+            <dt>Objetivo</dt>
+            <dd>
+              Facilitar o cadastro, a consulta e a reserva de itens disponíveis
+              para troca ou doação.
+            </dd>
+          </div>
+          <div>
+            <dt>Problema que procura resolver</dt>
+            <dd>
+              Em uma feira de trocas, as informações podem se perder se ficarem
+              apenas em conversas ou anotações. O sistema centraliza os dados em
+              uma lista pesquisável.
+            </dd>
+          </div>
+          <div>
+            <dt>Público-alvo</dt>
+            <dd>
+              Estudantes, professores, turmas, comunidades escolares ou grupos
+              que desejem organizar trocas e doações de objetos simples.
+            </dd>
+          </div>
+          <div>
+            <dt>Arquivos principais</dt>
+            <dd>
+              O projeto está dividido em <code>index.html</code>,
+              <code>style.css</code> e <code>script.js</code>.
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section id="tecnologias" class="pagina">
+        <h2>5. Tecnologias utilizadas</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Tecnologia</th>
+              <th>Uso no projeto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>HTML</td>
+              <td>
+                Estrutura a página, com cabeçalho, formulário, resumo, filtros,
+                lista de itens e rodapé.
+              </td>
+            </tr>
+            <tr>
+              <td>CSS</td>
+              <td>
+                Define cores, espaçamentos, layout responsivo, cartões, estados
+                de validação, etiquetas e aparência dos botões.
+              </td>
+            </tr>
+            <tr>
+              <td>JavaScript</td>
+              <td>
+                Controla o comportamento da aplicação: cadastro, validação,
+                filtragem, reserva, exclusão, mensagens e atualização do resumo.
+              </td>
+            </tr>
+            <tr>
+              <td>DOM</td>
+              <td>
+                Permite buscar elementos da página, alterar textos, criar cartões
+                dinamicamente e exibir mensagens ao usuário.
+              </td>
+            </tr>
+            <tr>
+              <td>Eventos</td>
+              <td>
+                Conectam ações do usuário ao sistema, como enviar formulário,
+                clicar em botões, digitar na busca e mudar filtros.
+              </td>
+            </tr>
+            <tr>
+              <td>Local Storage</td>
+              <td>
+                Guarda a lista de itens no navegador usando a chave
+                <code>feira-digital-itens</code>, permitindo que os dados
+                continuem disponíveis após atualizar ou fechar a página.
+              </td>
+            </tr>
+            <tr>
+              <td>JSON</td>
+              <td>
+                Converte a lista de objetos JavaScript em texto para salvar no
+                Local Storage e depois recupera esse texto como dados novamente.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="funcionalidades" class="pagina">
+        <h2>6. Funcionalidades desenvolvidas</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Funcionalidade</th>
+              <th>Como o usuário utiliza</th>
+              <th>Resultado</th>
+              <th>Recursos envolvidos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cadastro de item</td>
+              <td>Preenche nome, categoria, estado, tipo, responsável e descrição.</td>
+              <td>Um novo cartão é criado e salvo.</td>
+              <td>Formulário, JavaScript, DOM, Local Storage.</td>
+            </tr>
+            <tr>
+              <td>Validação dos campos</td>
+              <td>Clica em adicionar item com campos vazios ou dados repetidos.</td>
+              <td>Campos com erro são destacados e uma mensagem é exibida.</td>
+              <td>Funções de validação, classes CSS e mensagens no DOM.</td>
+            </tr>
+            <tr>
+              <td>Carregar exemplos</td>
+              <td>Clica no botão “Carregar exemplos”.</td>
+              <td>Itens de exemplo são adicionados, sem duplicar os que já existem.</td>
+              <td>Array de exemplos, verificação de duplicidade e Local Storage.</td>
+            </tr>
+            <tr>
+              <td>Contador da descrição</td>
+              <td>Digita no campo de descrição curta.</td>
+              <td>O contador mostra quantos caracteres foram usados de 200.</td>
+              <td>Evento <code>input</code> e atualização de texto no DOM.</td>
+            </tr>
+            <tr>
+              <td>Resumo automático</td>
+              <td>Realiza cadastros, reservas, disponibilizações ou exclusões.</td>
+              <td>Total, disponíveis, reservados e doações são recalculados.</td>
+              <td>Funções de filtro, contadores e manipulação do DOM.</td>
+            </tr>
+            <tr>
+              <td>Pesquisa por texto</td>
+              <td>Digita um termo no campo de pesquisa.</td>
+              <td>A lista mostra itens cujo nome ou descrição combinam com a busca.</td>
+              <td>Evento <code>input</code> e normalização de texto.</td>
+            </tr>
+            <tr>
+              <td>Filtros</td>
+              <td>Seleciona categoria, tipo ou situação.</td>
+              <td>A lista é atualizada conforme os critérios escolhidos.</td>
+              <td>Eventos <code>change</code>, comparação de dados e renderização.</td>
+            </tr>
+            <tr>
+              <td>Reservar item</td>
+              <td>Clica no botão “Reservar item” dentro do cartão.</td>
+              <td>O item muda para a situação “reservado”.</td>
+              <td>Delegação de clique, alteração do objeto e salvamento.</td>
+            </tr>
+            <tr>
+              <td>Disponibilizar novamente</td>
+              <td>Clica no botão do item reservado.</td>
+              <td>O item volta para a situação “disponível”.</td>
+              <td>Atualização de estado, DOM e Local Storage.</td>
+            </tr>
+            <tr>
+              <td>Excluir item</td>
+              <td>Clica em “Excluir” e confirma a ação.</td>
+              <td>O item é removido da lista e do armazenamento.</td>
+              <td><code>confirm</code>, filtro de array e persistência.</td>
+            </tr>
+            <tr>
+              <td>Atalhos de teclado</td>
+              <td>Pressiona <kbd>/</kbd> para focar a busca ou <kbd>Esc</kbd> para limpar.</td>
+              <td>A pesquisa fica mais rápida de usar.</td>
+              <td>Evento <code>keydown</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="dados" class="pagina">
+        <h2>7. Dados utilizados e armazenamento</h2>
+        <p>
+          Cada item cadastrado é representado por um objeto JavaScript. Esse
+          objeto possui as informações digitadas pelo usuário e alguns dados
+          criados automaticamente pelo sistema.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Finalidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>id</code></td>
+              <td>Identifica cada item de forma única para reservar, disponibilizar ou excluir.</td>
+            </tr>
+            <tr>
+              <td><code>nome</code></td>
+              <td>Nome do objeto cadastrado.</td>
+            </tr>
+            <tr>
+              <td><code>categoria</code></td>
+              <td>Grupo do item: livros, eletrônicos, roupas, casa, esportes ou outros.</td>
+            </tr>
+            <tr>
+              <td><code>estado</code></td>
+              <td>Estado de conservação informado no formulário.</td>
+            </tr>
+            <tr>
+              <td><code>tipo</code></td>
+              <td>Indica se o item está disponível para troca ou doação.</td>
+            </tr>
+            <tr>
+              <td><code>responsavel</code></td>
+              <td>Nome ou identificação da pessoa responsável pelo item.</td>
+            </tr>
+            <tr>
+              <td><code>descricao</code></td>
+              <td>Texto curto com detalhes importantes sobre o objeto.</td>
+            </tr>
+            <tr>
+              <td><code>situacao</code></td>
+              <td>Mostra se o item está disponível ou reservado.</td>
+            </tr>
+            <tr>
+              <td><code>criadoEm</code></td>
+              <td>Data e horário em que o cadastro foi feito.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Como os dados são criados, alterados e removidos</h3>
+        <p>
+          Um novo item é criado quando o usuário envia o formulário com dados
+          válidos. O sistema gera um identificador, define a situação inicial
+          como <code>disponivel</code> e registra a data de criação. Quando o
+          usuário reserva ou disponibiliza um item, apenas o campo
+          <code>situacao</code> é alterado. Quando o usuário exclui, o item é
+          retirado do array de itens.
+        </p>
+
+        <h3>Função do Local Storage</h3>
+        <p>
+          O Local Storage guarda os itens no próprio navegador. A função
+          <code>salvarItens</code> transforma o array em JSON e salva com
+          <code>localStorage.setItem</code>. A função <code>carregarItens</code>
+          recupera esses dados quando a página abre. Por isso, ao atualizar a
+          página, a lista não volta vazia.
+        </p>
+      </section>
+
+      <section id="telas" class="pagina">
+        <h2>8. Telas da aplicação</h2>
+
+        <figure>
+          <img src="assets/tela-cadastro-resumo.png" alt="Tela com cabeçalho, formulário de cadastro e resumo da feira." />
+          <figcaption>
+            Figura 1 - Área inicial da aplicação. Ela apresenta o nome do
+            projeto, os atalhos de teclado, o formulário de cadastro e o resumo
+            com os contadores automáticos.
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="assets/tela-filtros-lista.png" alt="Tela com filtros de pesquisa e cartões de itens cadastrados." />
+          <figcaption>
+            Figura 2 - Área de pesquisa, filtros e lista. O usuário pode filtrar
+            por texto, categoria, tipo e situação, além de reservar,
+            disponibilizar novamente ou excluir itens pelos botões dos cartões.
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="assets/tela-validacao.png" alt="Tela com mensagens de erro no formulário." />
+          <figcaption>
+            Figura 3 - Validação do formulário. Quando faltam informações, o
+            sistema mostra uma mensagem geral e destaca os campos que precisam
+            ser corrigidos.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="eventos" class="pagina">
+        <h2>9. Eventos e interações</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Evento</th>
+              <th>Onde é usado</th>
+              <th>Ação do usuário</th>
+              <th>O que acontece</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>DOMContentLoaded</code></td>
+              <td>Documento inteiro</td>
+              <td>A página termina de carregar.</td>
+              <td>O sistema seleciona elementos, carrega dados salvos e ativa os outros eventos.</td>
+            </tr>
+            <tr>
+              <td><code>submit</code></td>
+              <td>Formulário de cadastro</td>
+              <td>Usuário clica em “Adicionar item”.</td>
+              <td>Os dados são validados e, se estiverem corretos, o item é salvo.</td>
+            </tr>
+            <tr>
+              <td><code>reset</code></td>
+              <td>Formulário</td>
+              <td>Usuário clica em “Limpar formulário”.</td>
+              <td>O contador e os avisos de validação são limpos.</td>
+            </tr>
+            <tr>
+              <td><code>click</code></td>
+              <td>Botão de exemplos</td>
+              <td>Usuário clica em “Carregar exemplos”.</td>
+              <td>Itens prontos são adicionados para testar a aplicação.</td>
+            </tr>
+            <tr>
+              <td><code>click</code></td>
+              <td>Lista de itens</td>
+              <td>Usuário clica em reservar, disponibilizar ou excluir.</td>
+              <td>A função identifica o botão pelo atributo <code>data-acao</code> e executa a ação correta.</td>
+            </tr>
+            <tr>
+              <td><code>input</code></td>
+              <td>Campo de pesquisa</td>
+              <td>Usuário digita uma busca.</td>
+              <td>A lista é filtrada imediatamente.</td>
+            </tr>
+            <tr>
+              <td><code>input</code></td>
+              <td>Descrição</td>
+              <td>Usuário digita no textarea.</td>
+              <td>O contador de caracteres é atualizado.</td>
+            </tr>
+            <tr>
+              <td><code>change</code></td>
+              <td>Filtros de categoria, tipo e situação</td>
+              <td>Usuário escolhe uma opção.</td>
+              <td>Os cartões exibidos são recalculados.</td>
+            </tr>
+            <tr>
+              <td><code>keydown</code></td>
+              <td>Documento</td>
+              <td>Usuário pressiona <kbd>/</kbd> ou <kbd>Esc</kbd>.</td>
+              <td>A busca recebe foco ou é limpa.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="funcionamento" class="pagina">
+        <h2>10. Funcionamento básico da aplicação</h2>
+        <ol class="lista-detalhada">
+          <li>O usuário acessa a página da Feira Digital de Trocas.</li>
+          <li>O JavaScript carrega os itens salvos no Local Storage, se existirem.</li>
+          <li>O usuário preenche o formulário com os dados do item.</li>
+          <li>Ao enviar, o sistema valida campos obrigatórios e verifica duplicidade.</li>
+          <li>Se houver erro, a página mostra mensagens e foca o primeiro campo com problema.</li>
+          <li>Se estiver correto, o sistema cria um objeto de item com id, situação e data.</li>
+          <li>O novo item é salvo no array e gravado no Local Storage.</li>
+          <li>A lista de cartões e os números do resumo são atualizados.</li>
+          <li>O usuário pode pesquisar e combinar filtros para encontrar itens.</li>
+          <li>Nos cartões, o usuário pode reservar, disponibilizar novamente ou excluir.</li>
+          <li>Depois de cada alteração, o sistema salva novamente e mostra uma mensagem de confirmação.</li>
+        </ol>
+      </section>
+
+      <section id="dificuldades" class="pagina">
+        <h2>11. Dificuldades, soluções e melhorias futuras</h2>
+
+        <h3>Dificuldade encontrada</h3>
+        <p>
+          Uma dificuldade importante foi manter a lista atualizada em todos os
+          pontos da aplicação. Quando um item é cadastrado, reservado ou excluído,
+          não basta alterar apenas o array: também é necessário atualizar a tela,
+          recalcular o resumo e salvar novamente no Local Storage.
+        </p>
+
+        <h3>Solução aplicada</h3>
+        <p>
+          A solução foi separar o código em funções com responsabilidades
+          específicas, como <code>salvarItens</code>,
+          <code>aplicarPesquisaEFiltros</code>, <code>renderizarItens</code> e
+          <code>atualizarResumo</code>. Assim, depois de cada ação importante, o
+          sistema chama novamente essas funções e mantém os dados sincronizados.
+        </p>
+
+        <h3>Outra atenção necessária</h3>
+        <p>
+          O carregamento dos dados salvos também exigiu cuidado. A função
+          <code>carregarItens</code> usa <code>try...catch</code> para evitar que
+          um dado inválido quebre a aplicação. O código também normaliza itens
+          antigos e aceita uma chave anterior chamada <code>itens</code>.
+        </p>
+
+        <h3>Melhorias futuras</h3>
+        <ul>
+          <li>Permitir editar um item já cadastrado.</li>
+          <li>Adicionar imagem ou foto do objeto.</li>
+          <li>Criar filtro por responsável.</li>
+          <li>Permitir limpar todos os itens com confirmação.</li>
+          <li>Exportar a lista em arquivo para compartilhar com outras pessoas.</li>
+          <li>Adicionar modo de impressão da lista de itens.</li>
+        </ul>
+      </section>
+
+      <section id="conclusao" class="pagina">
+        <h2>12. Conclusão</h2>
+        <p>
+          Produzir esta documentação mostrou que desenvolver um projeto não é
+          apenas escrever código. Também é necessário explicar o problema, o
+          funcionamento, as tecnologias, os dados e as decisões tomadas. A
+          documentação ajuda a apresentar o trabalho, facilita futuras melhorias
+          e permite que outra pessoa entenda a aplicação sem precisar analisar
+          todos os arquivos imediatamente.
+        </p>
+        <p>
+          No projeto Feira Digital de Trocas, a documentação também ajudou a
+          perceber como HTML, CSS, JavaScript, DOM, eventos e Local Storage se
+          conectam para formar uma aplicação web interativa.
+        </p>
+      </section>
+
+      <section id="referencias" class="pagina">
+        <h2>13. Referências</h2>
+        <ul class="referencias">
+          <li>
+            MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API">Web Storage API</a>.
+            Consulta sobre Local Storage e armazenamento no navegador.
+          </li>
+          <li>
+            MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model">Document Object Model (DOM)</a>.
+            Consulta sobre DOM e manipulação da página.
+          </li>
+          <li>
+            MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Events">DOM events</a>.
+            Consulta sobre eventos e interações no navegador.
+          </li>
+          <li>
+            MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation">Client-side form validation</a>.
+            Consulta sobre validação de formulários.
+          </li>
+          <li>
+            Write the Docs. <a href="https://www.writethedocs.org/guide/">Software documentation guide</a>.
+            Consulta sobre boas práticas de documentação de software.
+          </li>
+          <li>
+            Diátaxis. <a href="https://diataxis.fr/">Diátaxis documentation framework</a>.
+            Consulta sobre tipos e objetivos de documentação técnica.
+          </li>
+          <li>
+            Google for Developers. <a href="https://developers.google.com/style/">Google developer documentation style guide</a>.
+            Consulta sobre clareza e consistência em documentação técnica.
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

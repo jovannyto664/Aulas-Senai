@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Chamados - TI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Central de Chamados Suporte</h1>
+    <button id="btn-tema" type="button">Modo Escuro</button>
+  </header>
+
+  <main>
+    <div class="formulario">
+      <input
+        type="text"
+        id="campo-chamado"
+        placeholder="Digite o problema tecnico aqui..."
+      >
+      <button id="btn-adicionar" type="button">Abrir Chamado</button>
+    </div>
+
+    <div id="container-chamados"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil salvo com segurança</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Perfil salvo com segurança</h1>
+
+    <label for="nome">Nome do jogador</label>
+    <input id="nome" type="text" placeholder="Ex.: Bianca">
+
+    <div class="botoes">
+      <button id="btn-salvar">Salvar perfil</button>
+      <button id="btn-carregar">Carregar perfil</button>
+      <button id="btn-corromper" class="alerta">Corromper dado</button>
+      <button id="btn-limpar" class="secundario">Limpar</button>
+    </div>
+
+    <section class="cartao">
+      <h2>Perfil atual</h2>
+      <p id="perfil-atual">Visitante</p>
+    </section>
+
+    <p id="mensagem" class="mensagem">
+      Aguardando uma ação.
+    </p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

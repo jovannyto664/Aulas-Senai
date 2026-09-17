@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Painel de Preferências</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <header>
-        <thead>
-            <h1>painel de preferências</h1>
-        </thead>
-    </header>
+    <main class="container">
+        <h1>Painel de Preferências</h1>
 
-    <tbody>
-        <label for="nome">insira seu nome aqui: <input placeholder="seu nome" type="text" name="nome" id="nome"></label>
-        <br>
-        <label for="temaPref">insira seu tema Preferido aqui: <input placeholder="Seu tema" type="text" name="temaPref"
-                id="temaPref"></label> <br>
-        <label for="opcoes">insira sua linguagem de programação favorita: <select name="opcoes" id="opcoes">
+        <form id="form-preferencias">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" placeholder="Digite seu nome">
+
+            <label for="tema">Tema preferido</label>
+            <input type="text" id="tema" placeholder="Claro, escuro, azul, verde ou outro">
+
+            <label for="linguagem">Linguagem favorita</label>
+            <select id="linguagem">
                 <option value="">Selecione uma opção</option>
-                <option value="1">JS</option>
-                <option value="2">Python</option>
-                <option value="3">Java</option>
-                <option value="4">c#</option>
-                <option value="5">outros</option>
-            </select></label><br>
-        <textarea placeholder="comente uma observação pessoal sua" name="textarea" id="textarea"></textarea><br>
-    </tbody>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="C#">C#</option>
+                <option value="Outra">Outra</option>
+            </select>
 
-    <button type="submit">enviar</button>
+            <label for="observacao">Observação pessoal</label>
+            <textarea id="observacao" placeholder="Comente uma observação pessoal sua"></textarea>
 
-    <div id="resumoJSON">teste</div>
+            <div class="botoes">
+                <button type="button" id="btn-salvar">Salvar preferências</button>
+                <button type="button" id="btn-apagar">Apagar preferências</button>
+            </div>
+        </form>
 
-
+        <section class="resumo">
+            <h2>Resumo das preferências</h2>
+            <div id="resumoJSON">
+                <p>Nenhuma preferência salva ainda.</p>
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
-
 </html>
