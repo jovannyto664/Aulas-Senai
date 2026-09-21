@@ -1,0 +1,18 @@
+*{
+    text-align: center;
+    box-shadow: 10px;
+    text-shadow: 10px;
+}
+
+
+button {
+    box-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.promocao{
+    border-color: green;
+}
+.destaque{
+    background-color: yellow;
+}
