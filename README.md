@@ -1,121 +1,101 @@
-# Aulas Estudadas
+# 🚀 Jeovanny Alves Almeida
 
-## 📖 Sobre o projeto
+![Banner](https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80)
 
-Este repositório reúne uma coleção de atividades, exercícios e pequenos projetos desenvolvidos durante o estudo de desenvolvimento de sistemas. Aqui estão práticas com HTML, CSS, JavaScript, manipulação do DOM, lógica de estado, persistência de dados, tratamento de erros e criação de interfaces interativas.
+**Desenvolvedor em formação | Estudante de programação | Foco em Front-end e lógica de sistemas**
 
-O objetivo principal é organizar o aprendizado em um único local, facilitar a revisão dos conceitos estudados e servir como base para evolução contínua como desenvolvedor.
-
----
-
-## 🎯 Objetivo
-
-O projeto busca:
-
-- registrar o progresso de aprendizagem em programação;
-- praticar conceitos fundamentais de desenvolvimento web;
-- desenvolver habilidades de organização, lógica e criatividade;
-- compor um portfólio de trabalhos e exercícios para demonstrar evolução técnica.
+[![GitHub](https://img.shields.io/badge/GitHub-jovannyto664-181717?logo=github&style=for-the-badge)](https://github.com/jovannyto664)
+[![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-4CAF50?style=for-the-badge)](https://github.com/jovannyto664)
 
 ---
 
-## 🚀 Tecnologias utilizadas
+## 📖 Sobre mim
 
-As principais tecnologias e ferramentas presentes neste repositório incluem:
-
-- HTML5
-- CSS
-- JavaScript
-- DOM (Document Object Model)
-- JSON e LocalStorage
-- Node.js
-- Git e GitHub
-- VS Code
-- React (em projetos específicos)
+Sou um estudante de tecnologia em constante evolução, com interesse em desenvolvimento web, lógica de programação, estrutura de dados e criação de interfaces interativas. Este repositório reúne atividades, exercícios e projetos que documentam meu aprendizado ao longo da jornada.
 
 ---
 
-## ✨ Funcionalidades
+## 🎯 Objetivos
 
-Este projeto reúne diversas funcionalidades e tipos de prática, como:
+- Aprender e aplicar conceitos de HTML, CSS e JavaScript;
+- Desenvolver projetos práticos com foco em usabilidade e organização;
+- Melhorar minhas habilidades em lógica, resolução de problemas e criatividade;
+- Montar um portfólio com exercícios e aplicações reais;
+- Evoluir como desenvolvedor com estudo contínuo e disciplina.
 
-- exercícios de lógica e programação;
-- manipulação de elementos na página com JavaScript;
-- criação de interfaces com HTML e CSS;
-- aplicação de eventos e interação do usuário;
-- uso de estados e regras de negócio em aplicações simples;
-- armazenamento local de informações com `localStorage`;
-- tratamento de erros e validações;
-- desenvolvimento de mini projetos e atividades práticas;
-- organização de estudos em um repositório centralizado.
+---
+
+## 🧩 Stack de estudos
+
+| Tecnologia | Uso principal |
+| --- | --- |
+| HTML5 | Estrutura e conteúdo |
+| CSS3 | Estilização e layout |
+| JavaScript | Interatividade e lógica |
+| DOM | Manipulação de elementos na página |
+| LocalStorage | Persistência de dados |
+| Git & GitHub | Versionamento e compartilhamento |
+| Node.js | Execução de scripts e estudos |
+| VS Code | Ambiente de desenvolvimento |
+
+---
+
+## ✅ Habilidades em desenvolvimento
+
+- [x] Fundamentos de programação
+- [x] HTML semântico
+- [x] CSS e responsividade
+- [x] JavaScript básico e intermediário
+- [x] Manipulação do DOM
+- [x] Persistência com LocalStorage
+- [x] Tratamento de erros e validações
+- [ ] React e aplicações mais avançadas
+- [ ] Backend e APIs
+- [ ] Banco de dados
 
 ---
 
 ## 📁 Estrutura do repositório
 
-O repositório contém vários módulos e projetos separados, incluindo pastas como:
+Este projeto reúne vários tópicos importantes, como:
 
-- atividades de revisão e reforço;
+- atividades de reforço;
 - exercícios de lógica;
-- projetos de DOM e eventos;
-- práticas de persistência de dados;
-- projetos de estudos e portfólio;
-- atividade final e projetos de aplicação prática.
-
-A organização do conteúdo facilita a navegação, o estudo e a reutilização dos códigos.
+- prática com eventos e DOM;
+- projetos de persistência de dados;
+- construções visuais e interfaces;
+- estudos em formação para desenvolvimento web.
 
 ---
 
-## 💻 Como executar
+## 🔗 Links úteis
 
-Para executar os projetos deste repositório, siga os passos abaixo:
+- [GitHub](https://github.com/jovannyto664)
+- [Repositório principal](https://github.com/jovannyto664/Aulas-Senai)
+- [Portfólio em construção](https://github.com/jovannyto664)
 
-1. Clone o repositório para sua máquina:
+---
 
-```bash
-git clone <https://github.com/jovannyto664/Aulas-Senai.git>
-```
-
-2. Acesse a pasta do projeto:
+## 💻 Como executar os projetos
 
 ```bash
+git clone https://github.com/jovannyto664/Aulas-Senai.git
 cd Aulas-Estudadas
-```
-
-3. Abra a pasta no VS Code.
-
-4. Para projetos em HTML/CSS/JavaScript, abra o arquivo `index.html` no navegador ou utilize um servidor local simples:
-
-```bash
 python -m http.server 8000
 ```
 
-Em seguida, acesse:
+Depois, abra no navegador:
 
 ```text
 http://localhost:8000
 ```
 
-5. Para arquivos JavaScript executados no terminal, use:
-
-```bash
-node nome-do-arquivo.js
-```
-
-> Alguns exercícios e projetos podem ser executados diretamente no navegador, enquanto outros necessitam da execução via terminal.
+> Alguns exercícios rodam diretamente no navegador, enquanto outros exigem execução via terminal com Node.js.
 
 ---
 
-## 👨‍💻 Autor
+## 📌 Mensagem final
 
-Nome: Jeovanny Alves Almeida
+**A jornada de aprendizado continua.** Cada exercício, projeto e desafio contribuí para meu crescimento como estudante e futuro desenvolvedor.
 
-Perfil profissional: em desenvolvimento, com foco em crescimento contínuo em programação e desenvolvimento web.
-
----
-
-## 📌 Observação
-
-Este repositório representa uma jornada de estudo em tecnologia, com foco em aprendizado prático e evolução contínua. Ele pode ser usado como referência pessoal, material de revisão e base para futuras criações.
-
-Seja bem-vindo ao projeto e continue explorando, aprendendo e construindo!
+Seja bem-vindo(a) ao meu espaço de estudo e evolução! 🌱
