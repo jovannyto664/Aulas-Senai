@@ -1,101 +1,78 @@
-# 🚀 Jeovanny Alves Almeida
+# React + TypeScript + Vite
 
-![Banner](https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-**Desenvolvedor em formação | Estudante de programação | Foco em Front-end e lógica de sistemas**
+Currently, two official plugins are available:
 
-[![GitHub](https://img.shields.io/badge/GitHub-jovannyto664-181717?logo=github&style=for-the-badge)](https://github.com/jovannyto664)
-[![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-4CAF50?style=for-the-badge)](https://github.com/jovannyto664)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
----
+## React Compiler
 
-## 📖 Sobre mim
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-Sou um estudante de tecnologia em constante evolução, com interesse em desenvolvimento web, lógica de programação, estrutura de dados e criação de interfaces interativas. Este repositório reúne atividades, exercícios e projetos que documentam meu aprendizado ao longo da jornada.
+Note: This will impact Vite dev & build performances.
+You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
 
----
+## Expanding the ESLint configuration
 
-## 🎯 Objetivos
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-- Aprender e aplicar conceitos de HTML, CSS e JavaScript;
-- Desenvolver projetos práticos com foco em usabilidade e organização;
-- Melhorar minhas habilidades em lógica, resolução de problemas e criatividade;
-- Montar um portfólio com exercícios e aplicações reais;
-- Evoluir como desenvolvedor com estudo contínuo e disciplina.
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
----
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-## 🧩 Stack de estudos
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 
-| Tecnologia | Uso principal |
-| --- | --- |
-| HTML5 | Estrutura e conteúdo |
-| CSS3 | Estilização e layout |
-| JavaScript | Interatividade e lógica |
-| DOM | Manipulação de elementos na página |
-| LocalStorage | Persistência de dados |
-| Git & GitHub | Versionamento e compartilhamento |
-| Node.js | Execução de scripts e estudos |
-| VS Code | Ambiente de desenvolvimento |
-
----
-
-## ✅ Habilidades em desenvolvimento
-
-- [x] Fundamentos de programação
-- [x] HTML semântico
-- [x] CSS e responsividade
-- [x] JavaScript básico e intermediário
-- [x] Manipulação do DOM
-- [x] Persistência com LocalStorage
-- [x] Tratamento de erros e validações
-- [ ] React e aplicações mais avançadas
-- [ ] Backend e APIs
-- [ ] Banco de dados
-
----
-
-## 📁 Estrutura do repositório
-
-Este projeto reúne vários tópicos importantes, como:
-
-- atividades de reforço;
-- exercícios de lógica;
-- prática com eventos e DOM;
-- projetos de persistência de dados;
-- construções visuais e interfaces;
-- estudos em formação para desenvolvimento web.
-
----
-
-## 🔗 Links úteis
-
-- [GitHub](https://github.com/jovannyto664)
-- [Repositório principal](https://github.com/jovannyto664/Aulas-Senai)
-- [Portfólio em construção](https://github.com/jovannyto664)
-
----
-
-## 💻 Como executar os projetos
-
-```bash
-git clone https://github.com/jovannyto664/Aulas-Senai.git
-cd Aulas-Estudadas
-python -m http.server 8000
 ```
 
-Depois, abra no navegador:
+You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
 
-```text
-http://localhost:8000
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
 ```
-
-> Alguns exercícios rodam diretamente no navegador, enquanto outros exigem execução via terminal com Node.js.
-
----
-
-## 📌 Mensagem final
-
-**A jornada de aprendizado continua.** Cada exercício, projeto e desafio contribuí para meu crescimento como estudante e futuro desenvolvedor.
-
-Seja bem-vindo(a) ao meu espaço de estudo e evolução! 🌱
